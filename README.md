@@ -1,4 +1,4 @@
-##MAZE-MUSIC
+## MAZE-MUSIC
 
 Web-app music servies
   
