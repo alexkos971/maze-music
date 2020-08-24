@@ -1,0 +1,6 @@
+export { default as cameraImg } from '../../assets/img/camera.jpg'
+export { default as glassesImg } from '../../assets/img/glasses.jpg'
+export { default as lampImg } from '../../assets/img/lamp.jpg'
+export { default as orangeImg } from '../../assets/img/orange.jpg'
+export { default as photoImg } from '../../assets/img/photoaparat.jpg'
+export { default as guitarImg } from '../../assets/img/guitar.jpg'

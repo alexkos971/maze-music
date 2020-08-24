@@ -1,0 +1,125 @@
+{
+    "songs" : [
+        {
+            "id": 1,
+            "name": "Believer",
+            "artist": "Imagine Dragons",
+            "albums": "Evolve",
+            "src": "https://mp3yoda.com/play/YWE1OWE1YjY3MTI4OWI2MGYyNGNmOTRjODgyYWIzZjEubXAz/",
+            "cover": "https://mp3yoda.com/style/download_song/84bb4ff9bfc07c6611685fcc513eb6b4_large.jpg",
+            "saved": false 
+        },
+        {
+            "id": 2,
+            "name": "Call out my name",
+            "artist": "The Weeknd",
+            "albums": "My Dear Melancholy",
+            "src": "https://cdn3.muzgoo.net/uploads/files/2018-08/1533758537_the-weeknd-call-out-my-name.mp3",
+            "cover": "https://pesnigoo.ru/uploads/posts/2018-08/1533809536_200x200.jpg",
+            "saved": false 
+        },
+        {
+            "id": 3,
+            "name": "92",
+            "artist": "Валентин Стрыкало",
+            "albums": "Развлечение",
+            "src": "https://cdn.mp3xa.cc/NRtGCFfUL-uix0T0XKguzQ/1598238326/L29ubGluZS9tcDMvMjAyMC8wNS_QktCw0LvQtdC90YLQuNC9INCh0YLRgNGL0LrQsNC70L4gLSA5Mi5tcDM",
+            "cover": "https://static.mp3xa.cc/album_images/400x400/valentin-strykalo-smiris-i-rasslabsja.jpg",
+            "saved": false 
+        },
+        {
+            "id": 4,
+            "name": "Ускользает",
+            "artist": "Валентин Стрыкало",
+            "albums": "Развлечение",
+            "src": "https://cdn.mp3xa.cc/AMdYWmzwN0ggfVxHnj5AMw/1598238607/L29ubGluZS9tcDMvMjAyMC8wNS_QktCw0LvQtdC90YLQuNC9INCh0YLRgNGL0LrQsNC70L4gLSDQo9GB0LrQvtC70YzQt9Cw0LXRgi5tcDM",
+            "cover": "https://static.mp3xa.cc/album_images/400x400/valentin-strykalo-razvlechenie.jpg",
+            "saved": false 
+        },
+        {
+            "id": 5,
+            "name": "Тени",
+            "artist": "Валентин Стрыкало",
+            "albums": "Развлечение",
+            "src": "https://cdn.mp3xa.cc/heHPci6-auPl74v5GnM4ZQ/1598240965/L29ubGluZS9tcDMvMjAyMC8wNS_QktCw0LvQtdC90YLQuNC9INCh0YLRgNGL0LrQsNC70L4gLSDQotC10L3QuC5tcDM",
+            "cover": "https://static.mp3xa.cc/album_images/400x400/valentin-strykalo-razvlechenie.jpg",
+            "saved": false 
+        },
+        {
+            "id": 6,
+            "name": "Батареи",
+            "artist": "Нервы",
+            "albums": "Развлечение",
+            "src": "https://cdn.mp3xa.cc/j1YZqkAKtEdnFB-XRtYkrQ/1598240857/L29ubGluZS9tcDMvMjAxMS8wMy_QndC10YDQstGLIC0g0JHQsNGC0LDRgNC10LgubXAz",
+            "cover": "https://pravda-news.ru/upload/resize_cache/iblock/0e3/580_390_15f6c2ca7f349d878e77366566b5d05c8/0e3e388ffba505fc78e32f7d37f1c33d.jpg",
+            "saved": true
+        },
+        {
+            "id": 7,
+            "name": "Будем друзьями",
+            "artist": "Нервы",
+            "albums": "Развлечение",
+            "src": "https://cdn.mp3xa.cc/zzHaWrH2DptF25puxoRSAg/1598240857/L29ubGluZS9tcDMvMjAxMi8wNS_QndC10YDQstGLIC0g0JTQsNCy0LDQuSDQkdGD0LTQtdC8INCU0YDRg9C30YzRj9C80LgubXAz",
+            "cover": "https://pravda-news.ru/upload/resize_cache/iblock/0e3/580_390_15f6c2ca7f349d878e77366566b5d05c8/0e3e388ffba505fc78e32f7d37f1c33d.jpg",
+            "saved": false
+        },
+        {
+            "id": 8,
+            "name": "Stayin' Alive",
+            "artist": "Bee Gees",
+            "albums": "Развлечение",
+            "src": "https://cdn9.sefon.pro/files/prev/1/The%20Bee%20Gees%20-%20Stayin%27%20Alive%20%28192kbps%29.mp3",
+            "cover": "https://sefon.pro/img/artist_photos/the-bee-gees.jpg",
+            "saved": false
+        }
+    ],
+    "sidebar" : {
+        "library" : [
+            {
+              "name": "Playlist",
+              "icon": "stream",
+              "id": 1
+            },
+            {
+              "name": "Artist",
+              "icon": "user",
+              "id": 2
+            },
+            {
+              "name": "Albums",
+              "icon": "compact-disc",
+              "id": 3
+            },
+            {
+              "name": "Songs",
+              "icon": "music",
+              "id": 4
+        }],
+        "discover": [
+            {
+              "name": "Store",
+              "icon": "square",
+              "id": 5
+            },
+            {
+              "name": "Radio",
+              "icon": "broadcast-tower",
+              "id": 6
+            },
+            {
+              "name": "For You",
+              "icon": "heart",
+              "id": 7
+            },
+            {
+              "name": "Browse",
+              "icon": "window-restore",
+              "id": 8
+            }],
+        "footer" : [
+          {
+            "v" : "1.0",
+            "update": "now"
+        }]
+    }
+}

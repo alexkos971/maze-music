@@ -1,0 +1,208 @@
+.slick-slider {
+    width: 100%;
+}
+
+.slick-slide div{
+    width: 95%;
+
+    &:after {
+        content: '';
+        padding-top: 70%;
+    } 
+}
+
+.music__main-artist {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 25px 0px 0px 60px;
+    overflow: hidden;
+
+    &-slider {
+        position: relative;
+
+        &-item {
+            width: 100% !important;
+            overflow: hidden;
+            position: relative;
+            display: block;
+            margin-right: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+
+            &:after {
+                content: "";
+                padding-top: 60%;/*65% ?*/
+                display: block;
+            }
+
+            a {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+            }
+
+            img {
+                width: 110%;
+                position: absolute;
+                top: 0;
+                z-index: -1;
+                filter: brightness(.6);
+                left: -5%;
+            }
+
+            &_artist {
+                position: relative;
+                top: 60%;
+                font-weight: lighter;
+                font-size: 22px;
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }       
+            
+            &_desk {
+                position: relative;
+                top: 65%;
+                font-size: 12px;
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+
+            }
+        }
+    }
+
+
+    .slider_wrap {
+        display: flex;
+        margin-top: 30px;
+        // padding-left: 5%;
+    }
+    .slider {
+        min-width: 180%;
+        display: flex;
+        left: 0%;
+        position: relative;
+        transition: .5s all ease-out;
+        overflow: hidden;
+        color: #fff;
+    }
+
+    .slider__arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 7px;
+        color: #000;
+        font-size: 29px;
+        z-index: 2;
+        cursor: pointer;
+
+        &:before {
+            display: none;
+        }
+    }
+    .slick-prev {
+       left: 4%;
+       z-index: 2;
+       
+        i {
+            font-size: 30px;
+            color: #000;
+        }
+
+        &::before {
+            display: none;
+        }
+    }
+    .slick-next {
+        right: 8%;
+        z-index: 2;
+
+        i {
+            font-size: 30px;
+            color: #000;
+        }
+
+        &::before {
+            display: none;
+        }
+    }
+
+    &-songs {
+        width: 60%;
+        position: relative;
+        margin-top: 30px;
+
+        &-nav {
+            width: 100%;
+            position: relative;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            &-bar {
+                width: 15%;
+                display: flex;
+                justify-content: space-between;
+
+                span {
+                    color: #8e8e8e;
+                    cursor: pointer;
+                    font-size: 18px;
+
+                    &:hover {
+                        color: #000;
+                    }
+                }
+            }
+        }
+
+        &-list {
+            width: 100%;
+            line-height: 50px;
+            display: block;
+            padding-left: 0;
+            margin: 0;
+
+            .play_btn {
+                display: block;
+                cursor: pointer;
+                margin-right: 10px;
+                font-size: 30px;
+                color: #ff2654;
+            }
+
+            li {
+                // width: 100%;
+                position: relative;
+                align-items: center;
+                display: flex;
+                transition: .2s all ease;
+                border-bottom: .5px solid #e8e8e8; 
+                font-weight: bold;
+                cursor: pointer;
+                box-sizing: border-box;
+                font-size: 14px;
+                padding-left: 13px;
+
+                &:hover .play_btn {
+                    display: block;
+                }
+                &:hover {
+                    color: #ff2654;
+                    background: rgba(0, 0, 0, 0.1);
+                }
+            }
+
+            &-time_now {
+                position: absolute;
+                right: 13px;
+            }
+
+            
+        }
+    }
+}

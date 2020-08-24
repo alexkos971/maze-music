@@ -1,0 +1,136 @@
+.music__player {
+    color: #bfbfbf;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px;
+    box-sizing: border-box;
+
+    .fas, .far {
+        cursor: pointer;
+    }
+    
+
+    &-controls {
+        width: 90px;
+        justify-content: space-between;
+        display: flex;
+        font-size: 13px;
+        align-items: center;
+
+        .play_btn {
+            font-size: 28px;
+            color: #ff2654;
+        }    
+    }
+
+    &-timeline {
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            height: 4px;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+            background-color: #636fff;
+            border-radius: 5px;
+            // -webkit-appearance: none;
+
+            // &::-webkit-slider-runnable-track {
+            //         width: 40px;
+            //         height: 100%;
+            //         border-radius: 5px;
+            //         position: r;
+            //         top: -p;
+            //         background-color: #bfbfbf;/*#636fff*/
+    
+            //     }
+
+            // &::-webkit-slider-thumb {
+            //     -webkit-appearance: none;
+            //     height: 8px;
+            //     width: 8px;
+            //     display: none;
+            //     border-radius: 50%;
+            //     background-color: #bfbfbf;
+            //     transition: .1s all ease;
+            //     cursor: pointer;
+
+            //     &:hover {
+            //         width: 12px;
+            //         height: 12px;
+            //     }
+            // }
+
+            &:hover &::-webkit-slider-thumb {
+                display: block;        
+            }  
+        }
+
+        
+    }
+
+    &-bar {
+        display: flex;
+        justify-content: space-between;
+        width: 150px;
+        align-items: center;
+
+        #repeat_all {
+            width: 16px;
+        }
+    }
+
+    &-volume {
+        display: flex;
+        position: relative;
+        left: 0;
+        align-items: center;
+        transition: .2s all ease;
+        outline: none;
+        width: 12%;
+
+        
+        &-range {
+            display: none;
+            width: 50px;
+            height: 2px;
+            -webkit-appearance: none;
+            margin-left: 5px;
+            cursor: pointer;
+            background-color: #bfbfbf;
+            
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                height: 8px;
+                width: 8px;
+                border-radius: 3px;
+                background-color: #bfbfbf;
+                cursor: pointer;
+
+                &:focus {
+                    background: #fff;
+                }
+            }
+            
+        }
+
+        &:hover {
+            left: -25px;
+            width: 33%;
+        }
+
+        &:hover &-range {
+            display: block;
+        }
+    }
+}
