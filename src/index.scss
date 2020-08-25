@@ -33,7 +33,8 @@ a {
   display: flex;
   justify-content: space-between;
 
-  $playerW: 50px;
+  $playerW: 50px;/*70*/
+  $color: #8e8e8e;
 
   &__sidebar {
     width: 15%;
@@ -67,6 +68,8 @@ a {
     .subtitle {
       margin: 10px 0px;
       font-weight: bold;
+      font-size: 1.7em;
+      margin-bottom: 20px;
     }
   }
 

@@ -1,30 +1,29 @@
 import React, { useState,  useEffect, useRef } from 'react';
 
 import './Player.scss';
-import repeatIcon from '../../assets/img/repeat.png'
+// import repeatIcon from '../../assets/img/repeat.png';
+
+// import axios from 'axios';
 
 
-const Player = ({ view, viewState, song, songs, start, setStart, timeTemplate }) => { 
-    const [stateVolume, setStateVolume] = useState(2);
+const Player = ({ view, viewState, song, songs, start, setStart, timeTemplate, save, onSaveSong, fullScreen, setFullScreen }) => { 
+    const [stateVolume, setStateVolume] = useState(5);
     const [dur, setDur] = useState(0);
     const [current, setCurrent] = useState(0);
-    const [saved, setSaved] = useState(0);
 
     useEffect(() => {
         audio.current.volume = stateVolume / 100;
+        // console.log(stateVolume);
     }, [stateVolume]);
-    
     
     useEffect(() => {
         playSong(start);
     }, [start])
 
-    
     const songTime = s => {
         let temp = timeTemplate(s);
         return temp;
     }
-
 
     // Play Audio
     const audio = useRef('audio_tag');
@@ -39,13 +38,19 @@ const Player = ({ view, viewState, song, songs, start, setStart, timeTemplate })
         setStart(start);
     }
 
-
     const handleProgress = e => { 
         let compute = (e.target.value * dur) / 100;
         setCurrent(compute); 
         audio.current.currentTime = compute;
     }
 
+    const mouseWheel = elem => {
+        // console.log(elem.deltaY);
+        if (elem.deltaY > 9.8 * 100 || elem.deltaY < 0.2 * 100) {
+            return false;
+        }
+            setStateVolume(elem.deltaY/stateVolume* 100)
+    }
 
     return (
         <div className="music__player">
@@ -57,6 +62,12 @@ const Player = ({ view, viewState, song, songs, start, setStart, timeTemplate })
                 onTimeUpdate={(e) => setCurrent(e.target.currentTime)} 
                 onCanPlay={(e) => setDur(e.target.duration)} >
             </audio>
+
+            {/* <div className="music__player-artist">
+                <div className="music__player-artist-wrap">
+                    <img src={song.cover} alt=""/>
+                </div>
+            </div> */}
 
             <div className="music__player-controls">
                 <i className="fas fa-backward" id="play_prev"></i>
@@ -103,15 +114,17 @@ const Player = ({ view, viewState, song, songs, start, setStart, timeTemplate })
                         type="range" 
                         value={Math.round(stateVolume * 10)} 
                         className="music__player-volume-range" 
+                        onWheel={e => mouseWheel(e)}
                         onChange={(e) => setStateVolume(e.target.value / 10)} />
                 </span>
                 
-                <span onClick={() => setSaved(!saved)}>
-                    <i className={`fa${song.saved ? "s" : "r"} fa-heart`}></i>
+                <span onClick={() => onSaveSong(save, song.id)}>
+                    <i className={`fa${save ? "s" : "r"} fa-heart`}></i>
                 </span>
 
-                <span onClick={() => audio.current.repeat()}>
-                    <img src={repeatIcon} alt="repeat all" id="repeat_all"/>
+                <span onClick={() => setFullScreen(!fullScreen)}>
+                    {/* <img src={repeatIcon} alt="repeat all" id="repeat_all"/> */}
+                    <i class={`fas fa-${!fullScreen ? "expand" : "compress"}`}></i>
                 </span>
 
                 <span onClick={() => {

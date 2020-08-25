@@ -2,22 +2,15 @@ import React, { useState } from 'react';
 import './Sidebar.scss';
 import Logo from '../../assets/img/maze_2.png';
 
-const Sidebar = ({ data, onClickItem, current}) => {
-    const [check, setCheck] = useState(current);
-
-
-    const onActiveItem = (id, item) => {
-        onClickItem(id, item);
-        setCheck(id);
-    }
+const Sidebar = ({ data, onClickItem, sidebarItem}) => {
 
     return (
         <div className="music__sidebar">
             
-            <div className="music__sidebar-logo">
+            {/* <div className="music__sidebar-logo">
                 <img src={Logo} alt="Logo"/>
                 <h2>MAZE MUSIC</h2>
-            </div>
+            </div> */}
             
             <div className="music__sidebar-library">
                 <h4 className="music__sidebar-title">Library</h4>
@@ -26,8 +19,8 @@ const Sidebar = ({ data, onClickItem, current}) => {
                             return (
                                 <li 
                                     key={item.id} 
-                                    onClick={() => onActiveItem(item.id, data["library"])} 
-                                    className={item.id === check ? "active" : ""}>
+                                    onClick={() => onClickItem(item.id)} 
+                                    className={item.id === sidebarItem ? "active" : ""}>
 
                                     <i className={`fas fa-${item.icon}`}></i>
                                     <span>{item.name}</span>
@@ -44,8 +37,8 @@ const Sidebar = ({ data, onClickItem, current}) => {
                             return (
                                 <li 
                                     key={item.id} 
-                                    onClick={() => onActiveItem(item.id, data["discover"])} 
-                                    className={item.id === check ? "active" : ''}>
+                                    onClick={() => onClickItem(item.id)} 
+                                    className={item.id === sidebarItem ? "active" : ''}>
 
                                     <i className={`fas fa-${item.icon}`}></i>
                                     <span>{item.name}</span>

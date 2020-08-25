@@ -1,43 +1,58 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import './Main.scss';
 import FullPlayer from '../Main/FullPlayer';
 
 // Selectors
 import Albums from './Albums';
-import Artist from './Artist';
+import Artists from './Artists';
 import Playlist from './Playlist';
 import Songs from './Songs';
 
-const Main = ({full, title, artists, songs, nowSong, setNowSong, start, setStart, timeTemplate }) => {
+const Main = ({full, title, sidebarItem, nowSong, setNowSong, start, setStart, timeTemplate, save, onSaveSong }) => {
+    
 
+    let page = () => {
+        console.log(title);
 
-    document.addEventListener('keydown', e => {
-        if (e.code === 'Space') {
-            setStart(!start);
-            // console.log(start);
+        switch (sidebarItem) {
+            case 1:
+                return (<Playlist/>);
+            case 2:
+                return (
+                    <Artists
+                        nowSong={nowSong}
+                        setNowSong={setNowSong}
+                        start={start} 
+                        setStart={setStart}
+                        timeTemplate={timeTemplate}/>);
+            case 3:
+                return (<Albums/>);
+            case 4:
+                return (
+                    <Songs 
+                        nowSong={nowSong}
+                        setNowSong={setNowSong}
+                        start={start} 
+                        setStart={setStart}
+                        timeTemplate={timeTemplate}
+                        save={save}
+                        onSaveSong={onSaveSong} />
+                );
+            default:
+                return (
+                    <h1 className="load_title">404! Directory not found</h1>
+                );    
         }
-    });
+    }
 
     return (
         <div className="music__main">
             <FullPlayer full={full} nowSong={nowSong}/>
 
             <span className="music__main-dir">{title}</span>
-
-            {title === "Albums" && <Albums/>}
-
-            {title === "Artist" && 
-                <Artist 
-                    artists={artists} 
-                    songs={songs}
-                    setNowSong={setNowSong}
-                    start={start} 
-                    setStart={setStart}
-                    timeTemplate={timeTemplate}/>}
-
-            {title === "Playlist" && <Playlist/>}
-            {title === "Songs" && <Songs/>}
+            
+            {page()}
         </div>
     );
 }

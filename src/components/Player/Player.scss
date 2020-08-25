@@ -9,6 +9,24 @@
     .fas, .far {
         cursor: pointer;
     }
+
+    &-artist {
+        height: 76%;
+        position: relative;
+        left: -23px;
+        display: flex;
+        justify-content: space-between;
+
+        &-wrap {
+            height: 100%;
+            width: 53.2px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
     
 
     &-controls {
@@ -16,6 +34,8 @@
         justify-content: space-between;
         display: flex;
         font-size: 13px;
+        position: relative;
+        // margin-left: -2%;
         align-items: center;
 
         .play_btn {
