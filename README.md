@@ -10,11 +10,13 @@ Web-application music servies, like [Spotify](https://open.spotify.com/)
 
 
 ## Will be created on next technology:
+  (Points highlighted by ***bold italic*** have not started yet)
+  
 + MERN
-  + *MobgoDB*
-  + *Express*
+  + ***MobgoDB***
+  + ***Express***
   + React (Hooks, Roter, *Redux*);
-  + *NodeJS*
+  + ***NodeJS***
 + WebPack
 + SASS
 
