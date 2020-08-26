@@ -8,13 +8,13 @@ Web-application music servies, like [Spotify](https://open.spotify.com/)
 
 
 ## Will be created on next technology:
-#### + MERN
++ MERN
   + *MobgoDB*
   + *Express*
   + React (Hooks, Roter, *Redux*);
   + *NodeJS*
-#### + - WebPack
-#### + - SASS
++ WebPack
++ SASS
 
 ## Maybe:
 #### - React native ( Mobile app )
