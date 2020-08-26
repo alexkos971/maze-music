@@ -6,6 +6,7 @@ Web-application music servies, like [Spotify](https://open.spotify.com/)
 ![alt text](https://github.com/alexkos971/maze-music/blob/master/src/assets/img/music_screen.png)
 
 
+
 ## Will be created on next technology:
 #### - MERN
   + *MobgoDB*
@@ -14,6 +15,11 @@ Web-application music servies, like [Spotify](https://open.spotify.com/)
   + *NodeJS*
 #### - WebPack
 #### - SASS
+
+## Maybe:
+#### - React native ( Mobile app )
+#### - ElectronJS ( Desktop app )
+
 
   
 
