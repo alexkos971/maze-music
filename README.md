@@ -6,6 +6,7 @@ Web-application music servies, like [Spotify](https://open.spotify.com/)
 
 ## Design
 ![alt text](https://github.com/alexkos971/maze-music/blob/master/src/assets/img/music_screen-browser.png)
+![alt text](https://github.com/alexkos971/maze-music/blob/master/src/assets/img/music_screen-dark.png)
 
 
 
