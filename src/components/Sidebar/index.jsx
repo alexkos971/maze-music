@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Sidebar.scss';
-import Logo from '../../assets/img/maze_2.png';
+// import Logo from '../../assets/img/maze_2.png';
 
 const Sidebar = ({ data, onClickItem, sidebarItem}) => {
 

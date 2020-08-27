@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Albums.scss';
+
 const Albums = () => {
     return (
         <div className="music__main-albums">

@@ -16,7 +16,7 @@
       "albums": "My Dear Melancholy",
       "src": "https://cdn3.muzgoo.net/uploads/files/2018-08/1533758537_the-weeknd-call-out-my-name.mp3",
       "cover": "https://pesnigoo.ru/uploads/posts/2018-08/1533809536_200x200.jpg",
-      "saved": false
+      "saved": true
     },
     {
       "id": 3,
@@ -41,7 +41,7 @@
       "name": "Тени",
       "artist": "Валентин Стрыкало",
       "albums": "Развлечение",
-      "src": "https://cdn.mp3xa.cc/heHPci6-auPl74v5GnM4ZQ/1598240965/L29ubGluZS9tcDMvMjAyMC8wNS_QktCw0LvQtdC90YLQuNC9INCh0YLRgNGL0LrQsNC70L4gLSDQotC10L3QuC5tcDM",
+      "src": "https://mzmdl.com/get/cuts/30/91/30914f13924b1cefc7fcce689343d99b/47844605/Valentin_Strykalo_-_Teni_b128f0d344.mp3",
       "cover": "https://static.mp3xa.cc/album_images/400x400/valentin-strykalo-razvlechenie.jpg",
       "saved": false
     },
@@ -131,5 +131,8 @@
       "v": "1.0",
       "update": "now"
     }
-  ]
+  ],
+  "mode": {
+    "night": false
+  }
 }

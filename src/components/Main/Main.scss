@@ -1,6 +1,6 @@
 .music__main {
     position: relative;
-    padding: 0px 0px 70px 0px;
+    padding: 0px 0px 50px 0px;
     background-color: #fff;
 
     $color: #8e8e8e;
@@ -13,6 +13,109 @@
         top: 25px;
         left: 60px;
     }
+
+    &-header {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 0;
+
+        &-head {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            transform: translate(-50%);
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            cursor: pointer;
+            
+            $height: 50px;
+            
+            i {
+                transition: .1s all ease;
+            }
+
+            span {
+                color: $color;
+                position: relative;
+                margin-left: 10px;
+                font-size: 14px;
+            }
+
+            &-wrap {
+                width: $height;
+                height: $height;
+                overflow: hidden;
+                border-radius: 50%;
+                box-sizing: border-box;
+                // border: 2.5px solid $color;
+
+                img {
+                    height: 100%;
+                    position: relative;
+                    display: block;
+                    right: 25%;
+                }
+            }
+        }
+
+        &-list {
+            display: none;
+
+            &-active {
+                display: block;
+                position: relative;
+                margin-right: 35px;
+                margin-top: 90px;
+                z-index: 1000;
+                padding: 10px 10px 0px;
+                background-color: #F4F6F8;
+                // border: 1px solid $color;
+                border-radius: 5px; 
+                line-height: 30px;
+
+                .music__main-header-head .fas {
+                    position: relative;
+                    transform: rotate(180deg);
+                    display: block;
+                }
+
+                li {
+                    width: 100%;
+                    border-bottom: .2px solid $color;
+                    padding: 2px;
+                    color: $color;
+                    cursor: pointer;
+                    font-size: 15px;
+
+                    &:active {
+                        color: #000;
+                    } 
+
+                    span {
+                        margin-right: 10px;
+                    }
+                }
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    top: -6.5px;
+                    right: calc(50% - 5px);
+                    width: 10px;
+                    height: 10px;
+                    background: #f4f6f8;
+                    // border-left: 1px solid $color;
+                    // border-top: 1px solid $color;
+                    transform: rotate(45deg);
+                }
+            }
+        }
+    }
+
 
     .full__view {
         // background-color: $color;

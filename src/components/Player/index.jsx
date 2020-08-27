@@ -13,12 +13,11 @@ const Player = ({ view, viewState, song, songs, start, setStart, timeTemplate, s
 
     useEffect(() => {
         audio.current.volume = stateVolume / 100;
-        // console.log(stateVolume);
     }, [stateVolume]);
     
     useEffect(() => {
         playSong(start);
-    }, [start])
+    }, [start, song]);
 
     const songTime = s => {
         let temp = timeTemplate(s);
@@ -124,7 +123,7 @@ const Player = ({ view, viewState, song, songs, start, setStart, timeTemplate, s
 
                 <span onClick={() => setFullScreen(!fullScreen)}>
                     {/* <img src={repeatIcon} alt="repeat all" id="repeat_all"/> */}
-                    <i class={`fas fa-${!fullScreen ? "expand" : "compress"}`}></i>
+                    <i className={`fas fa-${!fullScreen ? "expand" : "compress"}`}></i>
                 </span>
 
                 <span onClick={() => {

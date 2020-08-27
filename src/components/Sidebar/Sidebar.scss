@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap');
 
+$color: #8e8e8e;
+
 .music__sidebar {
 
     &-logo {
@@ -49,6 +51,11 @@
         cursor: pointer;
         z-index: 2;
         padding: 0px 0px 0px 10px;
+
+        a {
+          list-style: none;
+          color: $color;
+        }
 
         &:hover {
           background: rgba(0, 0, 0, 0.05);

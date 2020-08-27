@@ -89,45 +89,40 @@
         color: #fff;
     }
 
-    .slider__arrow {
+    .slick-arrow {
         position: absolute;
         top: 50%;
-        transform: translateY(-50%);
-        padding: 7px;
-        color: #000;
-        font-size: 29px;
         z-index: 2;
         cursor: pointer;
+        display: block;
+        width: 43px;
+        height: 43px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 50%;
+
+        i {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.5);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 3;
+            transform: translate(-50%, -50%);
+        }
+
+        &:active {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
 
         &:before {
             display: none;
         }
     }
     .slick-prev {
-       left: 4%;
-       z-index: 2;
-       
-        i {
-            font-size: 30px;
-            color: #000;
-        }
-
-        &::before {
-            display: none;
-        }
+       left: 2%;
     }
     .slick-next {
         right: 8%;
-        z-index: 2;
-
-        i {
-            font-size: 30px;
-            color: #000;
-        }
-
-        &::before {
-            display: none;
-        }
     }
 
     &_artist {

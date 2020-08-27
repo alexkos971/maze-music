@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Route, useHistory } from 'react-router-dom';
+
 import './Artists.scss';
 
 import Slider from 'react-slick';
@@ -6,13 +8,14 @@ import axios from 'axios';
 
 import Artist from '../Artist';
 
-import { photoImg, glassesImg, lampImg, orangeImg, cameraImg, guitarImg } from '../images';
+import { photoImg, glassesImg, lampImg, orangeImg, cameraImg, guitarImg } from '../../images';
 
 const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
 
     const [songList, setSongList] = useState([]);
     const [artists, setArtists] = useState([]);
     const [dur, setDur] = useState(0);
+    let history = useHistory();
 
 
     // Get list of songs
@@ -21,7 +24,7 @@ const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
             .then(({ data }) => {
               setSongList(data); 
             })
-    }, songList)
+    });
 
     const playSong = (play, item) => {
         if (item.id === nowSong.id) {
@@ -40,9 +43,7 @@ const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
             "cover": item.cover,
             "saved": item.saved
         }
-        setNowSong(now);
-
-        
+        setNowSong(now);        
     }
     
     let audio = new Audio();
@@ -56,11 +57,11 @@ const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
         dots: true,
         infinite: true,
         speed: 500,
-        prevArrow: <div className="slider__arrow slick-prev">
-                        <i className="fas fa-chevron-left"></i>
+        prevArrow: <div className="slider-arrow slick-prev">
+                        <i className="fas fa-arrow-left"></i>
                     </div>,
-        nextArrow: <div className="slider__arrow slick-next">
-                        <i className="fas fa-chevron-right"></i>
+        nextArrow: <div className="slider-arrow slick-next">
+                        <i className="fas fa-arrow-right"></i>
                     </div>,
         arrows: true,
         slidesToShow: 3,
@@ -78,7 +79,7 @@ const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
         .then(({ data }) => {
           setArtists(data.artists.artist);
         });
-    }, [])
+    }, []);
 
 
     return (
@@ -89,21 +90,24 @@ const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
                 {artists.map(item => {
                     return (
                             <div className="music__main-artists-slider-item" key={item.name}>
-                                <a href={item.url}>
+                                <a href={`Artist/artist`}>
                                     <img src={photoImg} alt="" className="slider_img"/>
                                     <h2 className="music__main-artists-slider-item_artist">{item.name}</h2>
-
+                        
                                     <div className="music__main-artists-slider-item_desk">
                                         <span>23 Albums | </span>
                                         <span>{(parseInt(item.listeners)/100000).toFixed(1)}M Followers</span> 
                                     </div>    
                                 </a>        
                             </div> 
+
                         );
                     })
                 }
                 </Slider>
 
+                
+            <Route path={'/artist'} component={Artist} />
 
             <div className="music__main-songs">
                 <div className="music__main-songs-nav">

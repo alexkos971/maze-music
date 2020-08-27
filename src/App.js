@@ -74,28 +74,24 @@ function App() {
   })
   const [sidebarItem, setSidebarItem] = useState(2)
 
+  const [night, setNight] = useState(true);
+
   const [full, setFull] = useState(false);
   const [startSong, setStartSong] = useState(false);
   const [save, setSave] = useState(nowSong.saved);
   const [fullScreen, setFullScreen] = useState(false);
 
-  const [title, setTitle] = useState(sidebar.library[2].name);
-  let history = useHistory(title);
+  const [title, setTitle] = useState(sidebar.library[1].name);
 
 
   // Set title and path
   useEffect(() => {
-      if (sidebarItem > 4) {
-          setTitle(sidebar.discover[(sidebarItem/2) - 1].name);
-      }
-      setTitle(sidebar.library[(sidebarItem - 1)].name);
-
-        // const sidebarId = history.location.pathname.split('/')[1];
-        // if (sidebar) {
-        //   const sidebarElem = sidebar.library.find(elem => elem.id === Number(sidebarId));
-        //   setSidebar(sidebarElem);
-        // }
-
+    if (sidebarItem < 5) {
+      setTitle(sidebar.library[sidebarItem - 1].name);
+    }
+    else {
+      setTitle(sidebar.discover[sidebarItem - 1].name);
+    }
   }, [sidebarItem])
 
   // Set nowSong
@@ -109,8 +105,15 @@ function App() {
       .then(({data}) => {
         setSidebar(data);
       })
-      setSidebarItem(sidebarItem);
+      // setSidebarItem(sidebarItem);
   }, [sidebar])
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/mode")
+      .then(({ data }) => {
+        setNight(data.night);
+      })
+  }, [])
       
   // Check saved songs
   useEffect(() => {
@@ -133,8 +136,22 @@ function App() {
   }
 
   const onClickItem = id => {
-    history.push(`/${title}`);
+    
+    if (id < 5) {
+      setTitle(sidebar.library[id - 1].name);
+    }
+    else {
+      setTitle(sidebar.discover.filter(item => id === item.id).name);
+    }
     setSidebarItem(id);
+    console.log(title)
+  }
+
+  const onActiveNightMode = () => {
+    axios.patch("http://localhost:3001/mode", {
+      night: !night
+    });
+    setNight(!night);
   }
 
   // Template of song time
@@ -154,7 +171,7 @@ function App() {
   });
 
   return (
-    <div className="music">
+    <div className={ !night ? "music-night" : "music"}>
 
       {sidebar ? (<Sidebar 
         sidebarItem={sidebarItem}
@@ -171,7 +188,9 @@ function App() {
         setStart={setStartSong}
         timeTemplate={timeTemplate}
         save={save}
-        onSaveSong={onSaveSong} />
+        onSaveSong={onSaveSong} 
+        night
+        setNight={onActiveNightMode}/>
       ) : (<h1 className="load_title">Loading...</h1>)}
 
       {nowSong ? (<Player 

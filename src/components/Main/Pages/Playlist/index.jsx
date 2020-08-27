@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Playlist.scss';
+
 const Playlist = () => {
     return (
         <div className="music__main-playlist">
