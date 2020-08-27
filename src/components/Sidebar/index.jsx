@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Sidebar.scss';
+import { NavLink, Route } from 'react-router-dom';
+
+import Artists from '../Main/Pages/Artists'
 // import Logo from '../../assets/img/maze_2.png';
 
-const Sidebar = ({ data, onClickItem, sidebarItem}) => {
+const Sidebar = ({ data, setTitle}) => {
+    const [dir, setDir] = useState(2);
+
+    const onActiveItem = (id, name) => {
+        setDir(id);
+        setTitle(name);
+    }
+
 
     return (
         <div className="music__sidebar">
@@ -19,11 +29,13 @@ const Sidebar = ({ data, onClickItem, sidebarItem}) => {
                             return (
                                 <li 
                                     key={item.id} 
-                                    onClick={() => onClickItem(item.id)} 
-                                    className={item.id === sidebarItem ? "active" : ""}>
-
-                                    <i className={`fas fa-${item.icon}`}></i>
-                                    <span>{item.name}</span>
+                                    onClick={() => onActiveItem(item.id, item.name)} 
+                                    className={item.id === dir ? "active" : ""}>
+                                    
+                                    <NavLink to={item.name}>
+                                        <i className={`fas fa-${item.icon}`}></i>
+                                        <span>{item.name}</span>
+                                    </NavLink>
                                 </li>);
                         })}   
                     </ul>
@@ -37,17 +49,17 @@ const Sidebar = ({ data, onClickItem, sidebarItem}) => {
                             return (
                                 <li 
                                     key={item.id} 
-                                    onClick={() => onClickItem(item.id)} 
-                                    className={item.id === sidebarItem ? "active" : ''}>
-
-                                    <i className={`fas fa-${item.icon}`}></i>
-                                    <span>{item.name}</span>
+                                    onClick={() => onActiveItem(item.id, item.name)} 
+                                    className={item.id === dir ? "active" : ''}>
+                                    
+                                    <NavLink to={item.name}>
+                                        <i className={`fas fa-${item.icon}`}></i>
+                                        <span>{item.name}</span>
+                                    </NavLink>    
                                 </li>);
                         })}
                     </ul>
             </div>
-
-
             {/* {data.footer.map(item => {
                 return (
                     <div className="music__sidebar-footer" key={item}>

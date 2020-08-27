@@ -127,15 +127,22 @@ $playerW: 50px;/*70*/
           background: rgba(142, 142, 142, 0.1)
         }
       
-      .active {
-        color: #fff;
+        &.active {
+          color: #fff;
+          position: relative;
+          font-weight: lighter;
+          display: block;
 
-        &::before {
-          border: 1px solid #fff;
+          &::before {
+            border: 1px solid #fff;
+          }
+
+          a {
+            color: #fff;
+            display: contents;
+          }
         }
       }
-      }
     }
-
   }
 }

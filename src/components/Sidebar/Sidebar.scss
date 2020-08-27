@@ -55,6 +55,7 @@ $color: #8e8e8e;
         a {
           list-style: none;
           color: $color;
+          display: block;
         }
 
         &:hover {
@@ -64,6 +65,11 @@ $color: #8e8e8e;
         &.active {
           color: #4a4a4a;
           transition: .2s all ease-in;
+
+          a {
+            color: #4a4a4a;
+            display: contents;
+          }
           
           &::before {
             content: "";

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Route, useHistory, NavLink } from 'react-router-dom';
 
 import './Main.scss';
 import FullPlayer from '../Main/FullPlayer';
@@ -6,49 +7,18 @@ import FullPlayer from '../Main/FullPlayer';
 // Selectors
 import Albums from './Pages/Albums';
 import Artists from './Pages/Artists';
+// import Artist from './Pages/Artist';
 import Playlist from './Pages/Playlist';
 import Songs from './Pages/Songs';
 import Profile from './Profile';
 
 import {lampImg, orangeImg, photoImg, cameraImg} from '../../components/Main/images';
+import Artist from './Pages/Artist';
 
-const Main = ({full, title, sidebarItem, nowSong, setNowSong, start, setStart, timeTemplate, save, onSaveSong, night, setNight }) => {
+const Main = ({full, title, nowSong, setNowSong, start, setStart, timeTemplate, save, onSaveSong, night, setNight }) => {
+    
     const [header, setHeader] = useState(false);
-
-    let page = () => {
-
-
-        switch (sidebarItem) {
-            case 1:
-                return (<Playlist/>);
-            case 2:
-                return (
-                    <Artists
-                        nowSong={nowSong}
-                        setNowSong={setNowSong}
-                        start={start} 
-                        setStart={setStart}
-                        timeTemplate={timeTemplate}/>);
-            case 3:
-                return (<Albums/>);
-            case 4:
-                return (
-                    <Songs 
-                        nowSong={nowSong}
-                        setNowSong={setNowSong}
-                        start={start} 
-                        setStart={setStart}
-                        timeTemplate={timeTemplate}
-                        save={save}
-                        onSaveSong={onSaveSong} />
-                );
-            default:
-                return (
-                    <h1 className="load_title">404! Directory not found</h1>
-                );    
-        }
-    }
-
+    let history = useHistory();
 
     return (
         <div className="music__main">
@@ -74,13 +44,15 @@ const Main = ({full, title, sidebarItem, nowSong, setNowSong, start, setStart, t
                         <span><i className="fas fa-cog"></i></span>
                         <span>Settings</span>
                     </li>
-                    <li onClick={() => setNight()}>
+                    <li onClick={() => setNight(!night)}>
                         <span><i className="fas fa-sun"></i></span>
                         <span>Night Mode</span>
                     </li>
                     <li>
-                        <span><i className="fas fa-user-circle"></i></span>
-                        <span>Profile</span>
+                        <NavLink to={"/profile"}>
+                            <span><i className="fas fa-user-circle"></i></span>
+                            <span>Profile</span>
+                        </NavLink>
                         </li>
                     <li>
                         <span><i className="fas fa-user-circle"></i></span>
@@ -88,8 +60,38 @@ const Main = ({full, title, sidebarItem, nowSong, setNowSong, start, setStart, t
                     </li>
                 </ul>
             </div>
-            
-            {page()}
+
+            <Route path={"/Playlist"}>
+                <Playlist/>
+            </Route>
+
+            <Route path={"/Artists"}>
+                <Artists
+                    nowSong={nowSong}
+                    setNowSong={setNowSong}
+                    start={start} 
+                    setStart={setStart}
+                    timeTemplate={timeTemplate}/>
+            </Route>
+
+            <Route path={"/Albums"}>
+                <Albums/>
+            </Route>
+
+            <Route path={"/Songs"}>
+                <Songs 
+                    nowSong={nowSong}
+                    setNowSong={setNowSong}
+                    start={start} 
+                    setStart={setStart}
+                    timeTemplate={timeTemplate}
+                    save={save}
+                    onSaveSong={onSaveSong} />
+            </Route>
+
+            <Route path={"/profile"}>
+                <Profile/>
+            </Route>
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { Route, useHistory } from 'react-router-dom';
+// import { Route, useHistory } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -71,28 +71,14 @@ function App() {
         "update": "now"
       }
     ]
-  })
-  const [sidebarItem, setSidebarItem] = useState(2)
+  });
 
   const [night, setNight] = useState(true);
-
   const [full, setFull] = useState(false);
   const [startSong, setStartSong] = useState(false);
   const [save, setSave] = useState(nowSong.saved);
   const [fullScreen, setFullScreen] = useState(false);
-
   const [title, setTitle] = useState(sidebar.library[1].name);
-
-
-  // Set title and path
-  useEffect(() => {
-    if (sidebarItem < 5) {
-      setTitle(sidebar.library[sidebarItem - 1].name);
-    }
-    else {
-      setTitle(sidebar.discover[sidebarItem - 1].name);
-    }
-  }, [sidebarItem])
 
   // Set nowSong
   useEffect(() => {
@@ -113,7 +99,7 @@ function App() {
       .then(({ data }) => {
         setNight(data.night);
       })
-  }, [])
+  }, [night])
       
   // Check saved songs
   useEffect(() => {
@@ -133,18 +119,6 @@ function App() {
       saved: !save
     })
     .catch(err => console.log(err));
-  }
-
-  const onClickItem = id => {
-    
-    if (id < 5) {
-      setTitle(sidebar.library[id - 1].name);
-    }
-    else {
-      setTitle(sidebar.discover.filter(item => id === item.id).name);
-    }
-    setSidebarItem(id);
-    console.log(title)
   }
 
   const onActiveNightMode = () => {
@@ -174,14 +148,12 @@ function App() {
     <div className={ !night ? "music-night" : "music"}>
 
       {sidebar ? (<Sidebar 
-        sidebarItem={sidebarItem}
-        data={sidebar} 
-        onClickItem={onClickItem}/>) : (<h1 className="load_title">Loading...</h1>)}
+        data={sidebar}
+        setTitle={setTitle} />) : (<h1 className="load_title">Loading...</h1>)}
 
       {nowSong ? (<Main 
         full={full}
         title={title} 
-        sidebarItem={sidebarItem}
         nowSong={nowSong}
         setNowSong={setNowSong}
         start={startSong} 

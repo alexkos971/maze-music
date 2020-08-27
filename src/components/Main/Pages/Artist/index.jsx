@@ -4,8 +4,8 @@ import '../../Main.scss';
 const Artist = () => {
 
     return (
-        <div className="music__main-artists_artist">
-            <h1>Hello</h1>
+        <div className="music__main-artist">
+            <h2 className="subtitle">Hello</h2>
         </div>
     );
 }

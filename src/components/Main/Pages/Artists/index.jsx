@@ -24,7 +24,7 @@ const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
             .then(({ data }) => {
               setSongList(data); 
             })
-    });
+    }, [nowSong]);
 
     const playSong = (play, item) => {
         if (item.id === nowSong.id) {
@@ -79,7 +79,7 @@ const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
         .then(({ data }) => {
           setArtists(data.artists.artist);
         });
-    }, []);
+    }, [start]);
 
 
     return (
@@ -90,7 +90,7 @@ const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
                 {artists.map(item => {
                     return (
                             <div className="music__main-artists-slider-item" key={item.name}>
-                                <a href={`Artist/artist`}>
+                                <a href="/artist">
                                     <img src={photoImg} alt="" className="slider_img"/>
                                     <h2 className="music__main-artists-slider-item_artist">{item.name}</h2>
                         
@@ -106,8 +106,10 @@ const Artists = ({ nowSong, setNowSong, start, setStart, timeTemplate }) => {
                 }
                 </Slider>
 
-                
-            <Route path={'/artist'} component={Artist} />
+            <Route path="/artist">
+                <Artist/>
+            </Route>    
+
 
             <div className="music__main-songs">
                 <div className="music__main-songs-nav">
