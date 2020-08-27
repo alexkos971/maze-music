@@ -16,7 +16,7 @@ Web-application music servies, like [Spotify](https://open.spotify.com/)
 + MERN
   + ***MobgoDB***
   + ***Express***
-  + React (Hooks, Roter, *Redux*);
+  + React (Hooks, Router, *Redux*);
   + ***NodeJS***
 + WebPack
 + SASS
