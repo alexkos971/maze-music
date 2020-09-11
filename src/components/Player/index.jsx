@@ -117,7 +117,7 @@ const Player = ({ view, viewState, song, songs, start, setStart, timeTemplate, s
                         onChange={(e) => setStateVolume(e.target.value / 10)} />
                 </span>
                 
-                <span onClick={() => onSaveSong(save, song.id)}>
+                <span onClick={() => onSaveSong(save, song.id, song)}>
                     <i className={`fa${save ? "s" : "r"} fa-heart`}></i>
                 </span>
 

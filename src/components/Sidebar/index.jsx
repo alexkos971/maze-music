@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Sidebar.scss';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
-import Artists from '../Main/Pages/Artists'
+// import Artists from '../Main/Pages/Artists'
 // import Logo from '../../assets/img/maze_2.png';
 
 const Sidebar = ({ data, setTitle}) => {

@@ -1,0 +1,177 @@
+{
+    "data": {
+      "songs": [
+        {
+          "id": 1,
+          "name": "Believer",
+          "artist": "Imagine Dragons",
+          "albums": "Evolve",
+          "src": "https://mp3yoda.com/play/YWE1OWE1YjY3MTI4OWI2MGYyNGNmOTRjODgyYWIzZjEubXAz/",
+          "cover": "https://mp3yoda.com/style/download_song/84bb4ff9bfc07c6611685fcc513eb6b4_large.jpg",
+          "saved": true
+        },
+        {
+          "id": 2,
+          "name": "Call out my name",
+          "artist": "The Weeknd",
+          "albums": "My Dear Melancholy",
+          "src": "https://cdn3.muzgoo.net/uploads/files/2018-08/1533758537_the-weeknd-call-out-my-name.mp3",
+          "cover": "https://pesnigoo.ru/uploads/posts/2018-08/1533809536_200x200.jpg",
+          "saved": true
+        },
+        {
+          "id": 3,
+          "name": "92",
+          "artist": "Валентин Стрыкало",
+          "albums": "Развлечение",
+          "src": "https://cdn.mp3xa.cc/NRtGCFfUL-uix0T0XKguzQ/1598238326/L29ubGluZS9tcDMvMjAyMC8wNS_QktCw0LvQtdC90YLQuNC9INCh0YLRgNGL0LrQsNC70L4gLSA5Mi5tcDM",
+          "cover": "https://static.mp3xa.cc/album_images/400x400/valentin-strykalo-smiris-i-rasslabsja.jpg",
+          "saved": false
+        },
+        {
+          "id": 4,
+          "name": "Ускользает",
+          "artist": "Валентин Стрыкало",
+          "albums": "Развлечение",
+          "src": "https://cdn.mp3xa.cc/AMdYWmzwN0ggfVxHnj5AMw/1598238607/L29ubGluZS9tcDMvMjAyMC8wNS_QktCw0LvQtdC90YLQuNC9INCh0YLRgNGL0LrQsNC70L4gLSDQo9GB0LrQvtC70YzQt9Cw0LXRgi5tcDM",
+          "cover": "https://static.mp3xa.cc/album_images/400x400/valentin-strykalo-razvlechenie.jpg",
+          "saved": false
+        },
+        {
+          "id": 5,
+          "name": "Тени",
+          "artist": "Валентин Стрыкало",
+          "albums": "Развлечение",
+          "src": "https://mzmdl.com/get/cuts/30/91/30914f13924b1cefc7fcce689343d99b/47844605/Valentin_Strykalo_-_Teni_b128f0d344.mp3",
+          "cover": "https://static.mp3xa.cc/album_images/400x400/valentin-strykalo-razvlechenie.jpg",
+          "saved": false
+        },
+        {
+          "id": 6,
+          "name": "Батареи",
+          "artist": "Нервы",
+          "albums": "Развлечение",
+          "src": "https://mp3yoda.com/play/NGZhYTI4Mjg5MDEyODA5ZmZiOTgxYjBlMDZlMDgzZjAubXAz/",
+          "cover": "https://pravda-news.ru/upload/resize_cache/iblock/0e3/580_390_15f6c2ca7f349d878e77366566b5d05c8/0e3e388ffba505fc78e32f7d37f1c33d.jpg",
+          "saved": true
+        },
+        {
+          "id": 7,
+          "name": "Будем друзьями",
+          "artist": "Нервы",
+          "albums": "Развлечение",
+          "src": "https://cdn.mp3xa.cc/zzHaWrH2DptF25puxoRSAg/1598240857/L29ubGluZS9tcDMvMjAxMi8wNS_QndC10YDQstGLIC0g0JTQsNCy0LDQuSDQkdGD0LTQtdC8INCU0YDRg9C30YzRj9C80LgubXAz",
+          "cover": "https://pravda-news.ru/upload/resize_cache/iblock/0e3/580_390_15f6c2ca7f349d878e77366566b5d05c8/0e3e388ffba505fc78e32f7d37f1c33d.jpg",
+          "saved": false
+        },
+        {
+          "id": 8,
+          "name": "Stayin' Alive",
+          "artist": "Bee Gees",
+          "albums": "Развлечение",
+          "src": "https://cdn9.sefon.pro/files/prev/1/The%20Bee%20Gees%20-%20Stayin%27%20Alive%20%28192kbps%29.mp3",
+          "cover": "https://sefon.pro/img/artist_photos/the-bee-gees.jpg",
+          "saved": true
+        },
+        {
+          "id": 9,
+          "name": "Maps",
+          "artist": "Maroon 5",
+          "albums": "V",
+          "src": "https://mp3yoda.com/play/NzgyNjIxNTAxNDJiMzU3YjliMDBmOWY5ZTdkMWY1NTUubXAz/",
+          "cover": "https://cdn.ontourmedia.io/maroon5sin//non_secure/images/20140616/news/maps_avail_now1x1/large.jpg",
+          "saved": true
+        }
+      ],
+      "artists": [
+        {
+          "id": 1,
+          "name": "The Weeknd",
+          "listeners": "1630809",
+          "albums": 23,
+          "img": "https://tophit.ru/en/i/news/23879_l.jpg"
+        },
+        {
+          "id": 2,
+          "name": "Billie Eilish",
+          "listeners": "878090",
+          "albums": 6,
+          "img": "https://media.npr.org/assets/img/2019/12/09/gettyimages-1175567702-c01e78852dfdfe16fa80bde33bb68237f4887ac0-s800-c85.jpg"
+        },
+        {
+          "id": 3,
+          "name": "Taylor Swift",
+          "listeners": "2508748",
+          "albums": 16,
+          "img": "data:image/jpeg;base64,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"  
+        },
+        {
+          "id": 4,
+          "name": "Lady Gaga",
+          "listeners": "4097049",
+          "albums": 31,
+          "img": "https://cdn21.img.ria.ru/images/156372/46/1563724684_0:199:3072:1927_600x0_80_0_0_fb7b0e5402cbd9f432b5dfa1fae806b2.jpg"
+        },
+        {
+          "id": 5,
+          "name": "Dua Lipa",
+          "listeners": "825755",
+          "albums": 16,
+          "img": "https://tophit.ru/ru/i/news/23859_l.jpg"
+        }
+      ],
+      "library": [
+        {
+          "name": "Playlist",
+          "icon": "stream",
+          "id": 1
+        },
+        {
+          "name": "Artists",
+          "icon": "user",
+          "id": 2
+        },
+        {
+          "name": "Albums",
+          "icon": "compact-disc",
+          "id": 3
+        },
+        {
+          "name": "Songs",
+          "icon": "music",
+          "id": 4
+        }
+      ],
+      "discover": [
+        {
+          "name": "Store",
+          "icon": "square",
+          "id": 5
+        },
+        {
+          "name": "Radio",
+          "icon": "broadcast-tower",
+          "id": 6
+        },
+        {
+          "name": "For You",
+          "icon": "heart",
+          "id": 7
+        },
+        {
+          "name": "Browse",
+          "icon": "window-restore",
+          "id": 8
+        }
+      ],
+      "footer": [
+        {
+          "v": "1.0",
+          "update": "now"
+        }
+      ],
+      "mode": {
+        "night": false
+      }
+    }
+  }

@@ -1,0 +1,69 @@
+$wrap: 200px;
+
+.music__main-playlist {
+    padding: 25px 60px 0px 60px;
+
+    &-list {
+        display: block;  
+        position: relative; 
+
+        li {
+            display: flex;
+            position: relative;
+            align-items: center;
+            width: 100%;
+            height: $wrap;
+            overflow: hidden;
+
+            a {
+                text-decoration: none;
+                display: flex;
+            }
+
+            h2, span {
+                color: #fff;
+                position: relative;
+                margin-left: 30px;
+            }
+        }
+
+        &_img-wrap {
+            width: $wrap;
+            height: $wrap;
+            display: block;
+            overflow: hidden;
+            position: relative;
+
+            img {
+                height: 100%;
+
+            }
+
+            &:hover img {
+                filter: brightness(.5);
+            }
+        
+            &:hover .play_btn {
+                display: block;
+                position: absolute;
+                border: .4px solid #fff;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000;
+                color: #000;
+                font-size: 60px; 
+                transition: .1s all;
+
+                &:hover {
+                    font-size: 66px;
+                }
+            }
+
+            .play_btn {
+                display: none;
+            }
+        }
+    }
+}

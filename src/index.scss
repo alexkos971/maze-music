@@ -23,7 +23,7 @@ a {
 
 // Variables
 $color: #8e8e8e;
-$playerW: 50px;/*70*/
+// $playerW: 50px;/*70*/
 
 
 .music, .music-night {
@@ -40,7 +40,7 @@ $playerW: 50px;/*70*/
 
   &__sidebar {
     width: 15%;
-    height: calc(100% - $playerW);
+    height: calc(100% - 50px);
     background-color: #F4F6F8;
 
     position: relative;
@@ -52,7 +52,7 @@ $playerW: 50px;/*70*/
   }
 
   &__player {
-    height: $playerW;
+    height: 50px;
     width: 100%;
     left: 0;
     bottom: 0;
@@ -117,6 +117,17 @@ $playerW: 50px;/*70*/
           // border-bottom: none;
         }
       }
+
+      &-artists {
+        
+        &-slider-item_artist {
+          color: #fff !important;
+        }
+
+        .slick-dots button:before {
+          color: #fff;
+        }     
+      }
     }
 
     &__sidebar {
@@ -135,6 +146,7 @@ $playerW: 50px;/*70*/
 
           &::before {
             border: 1px solid #fff;
+            background-color: #fff;
           }
 
           a {

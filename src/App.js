@@ -23,7 +23,7 @@ function App() {
   const [sidebar, setSidebar] = useState({
     "library": [
       {
-        "name": "Playlist",
+        "name": "Playlists",
         "icon": "stream",
         "id": 1
       },
@@ -121,6 +121,14 @@ function App() {
     .catch(err => console.log(err));
   }
 
+  const onSavePlaylist = (save, props) => {
+    console.log(save, props);
+
+    axios.post('http://localhost:3001/playlists/', props)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  }
+
   const onActiveNightMode = () => {
     axios.patch("http://localhost:3001/mode", {
       night: !night
@@ -161,6 +169,7 @@ function App() {
         timeTemplate={timeTemplate}
         save={save}
         onSaveSong={onSaveSong} 
+        onSavePlaylist={onSavePlaylist}
         night
         setNight={onActiveNightMode}/>
       ) : (<h1 className="load_title">Loading...</h1>)}

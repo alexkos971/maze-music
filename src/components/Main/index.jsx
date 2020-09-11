@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Route, useHistory, NavLink } from 'react-router-dom';
+import { Route, useHistory, NavLink, Redirect } from 'react-router-dom';
 
 import './Main.scss';
 import FullPlayer from '../Main/FullPlayer';
@@ -8,17 +8,17 @@ import FullPlayer from '../Main/FullPlayer';
 import Albums from './Pages/Albums';
 import Artists from './Pages/Artists';
 // import Artist from './Pages/Artist';
-import Playlist from './Pages/Playlist';
+import Playlists from './Pages/Playlists';
 import Songs from './Pages/Songs';
 import Profile from './Profile';
 
-import {lampImg, orangeImg, photoImg, cameraImg} from '../../components/Main/images';
-import Artist from './Pages/Artist';
+import {photoImg} from '../../components/Main/images';
+// import Artist from './Pages/Artist';
 
-const Main = ({full, title, nowSong, setNowSong, start, setStart, timeTemplate, save, onSaveSong, night, setNight }) => {
+const Main = ({full, title, nowSong, setNowSong, start, setStart, timeTemplate, save, onSaveSong, onSavePlaylist, night, setNight }) => {
     
     const [header, setHeader] = useState(false);
-    let history = useHistory();
+    // let history = useHistory();
 
     return (
         <div className="music__main">
@@ -61,14 +61,20 @@ const Main = ({full, title, nowSong, setNowSong, start, setStart, timeTemplate, 
                 </ul>
             </div>
 
-            <Route path={"/Playlist"}>
-                <Playlist/>
+            <Route path="/">
+                <Redirect to="/Artists"/>
+            </Route>
+
+            <Route path={"/Playlists"}>
+                <Playlists/>
             </Route>
 
             <Route path={"/Artists"}>
                 <Artists
                     nowSong={nowSong}
                     setNowSong={setNowSong}
+                    saved={save}
+                    onSavePlaylist={onSavePlaylist}
                     start={start} 
                     setStart={setStart}
                     timeTemplate={timeTemplate}/>

@@ -6,15 +6,15 @@ import './Songs.scss';
 const Songs = ({ nowSong, setNowSong, start, setStart, timeTemplate, save, onSaveSong }) => {
 
     const [songList, setSongList] = useState([]);
+    const [dur, setDur] = useState({});
 
     
     useEffect(() => {
-        axios.get("http://localhost:3001/songs/")
+        axios.get("http://localhost:3001/saved-songs/")
             .then(({ data }) => {
               setSongList(data); 
             })
     }, [save]);
-    
 
     const playSong = (play, item) => {
         if (item.id === nowSong.id) {
@@ -61,31 +61,37 @@ const Songs = ({ nowSong, setNowSong, start, setStart, timeTemplate, save, onSav
             <ol className="music__main-songs-list songs-list">
                 {
                     songList.map(item => {
-                        if (item.saved) {
 
+                        if(!(item.id in dur)){
                             let audio = new Audio();
                             audio.src = item.src;
-
-                            let time = timeTemplate(audio.src);
-                            return (
-                                <li key={item.id} id={(nowSong.id === item.id) ? "now_play" : ''}>
-                                    <i className={`fas fa-${(start && nowSong.id === item.id) ? "pause" : "play"}-circle play_btn`} 
-                                        onClick={() => playSong(!start, item)}>
-                                    </i>
-                                    <span className="music__main-songs-list_name">{`${item.artist} - ${item.name}`}</span>
-
-                                    <span className="music__main-songs-list-saved"
-                                        onClick={() => onSaveSong(save, item.id)}>
-
-                                        <i className={`fa${item.saved ? "s" : "r"} fa-heart`}></i>
-                                    </span>
-
-                                    <span className="music__main-songs-list-time_now">
-                                        03:45
-                                    </span>    
-                                </li>
-                            )
+                                
+                            audio.oncanplay = (e) => {
+                                let obj = dur;
+                                obj[item.id] = e.target.duration
+                                setDur(obj);
+                                console.log(obj);
+                            }
                         }
+
+                        return (
+                            <li key={item.id} id={(nowSong.id === item.id) ? "now_play" : ''}>
+                                <i className={`fas fa-${(start && nowSong.id === item.id) ? "pause" : "play"}-circle play_btn`} 
+                                    onClick={() => playSong(!start, item)}>
+                                </i>
+                                <span className="music__main-songs-list_name">{`${item.artist} - ${item.name}`}</span>
+
+                                <span className="music__main-songs-list-saved"
+                                    onClick={() => onSaveSong(save, item.id)}>
+
+                                    <i className={`fa${item.saved ? "s" : "r"} fa-heart`}></i>
+                                </span>
+
+                                <span className="music__main-songs-list-time_now">
+                                    {timeTemplate(dur[item.id])}
+                                </span>    
+                            </li>
+                        )
                     })
                 }
             </ol>
