@@ -8,23 +8,20 @@ Web-application music servies, like [Spotify](https://open.spotify.com/)
 
 Link on full [Template on Figma](https://www.figma.com/file/i8nhb8taUlfWvvyW6HcaRs/Maze-music?node-id=0%3A1)
 
-![alt text](https://github.com/alexkos971/maze-music/blob/master/src/assets/img/music_screen-browser.png)
-![alt text](https://github.com/alexkos971/maze-music/blob/master/src/assets/img/music_screen-dark.png)
-
-
 
 ## Will be created on next technology:
   (Points highlighted by ***bold italic*** have not started yet)
   
 + MERN
-  + ***MobgoDB***
-  + ***Express***
+  + MobgoDB
+  + Express
   + React (Hooks, Router, *Redux*);
-  + ***NodeJS***
+  + NodeJS
 + WebPack
 + SASS
 
++ React native
+
 ## Maybe:
-#### - React native ( Mobile app )
 #### - ElectronJS ( Desktop app )
 
