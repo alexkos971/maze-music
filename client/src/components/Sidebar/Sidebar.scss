@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap');
+
+$color: #8e8e8e;
+
+.music__sidebar {
+
+    &-logo {
+      $height: 40px;
+      width: 100%;
+      height: $height;
+      overflow: hidden;
+      position: relative;
+      padding-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      border-bottom: .5px solid #8e8e8e;
+
+      img {
+        width: $height;
+        height: $height;
+      }
+
+      h2 {
+        font-size: 20px;
+        color: #000;
+        font-family: 'Titillium Web', sans-serif;
+      }
+    }
+
+    &-title {
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+  
+    ul {
+      line-height: 33px;
+      font-size: 15px;
+  
+      li {
+        width: calc(100%);
+        position: relative;
+        align-items: center;
+        cursor: pointer;
+        z-index: 2;
+        box-sizing: border-box;
+        padding: 2px 15px;
+        border-radius: 5px;
+        // padding: 0px 0px 0px 10px;
+
+        a {
+          list-style: none;
+          color: $color;
+          display: block;
+        }
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+
+        &.active {
+          color: #4a4a4a;
+          // transition: .1s all ease-in;
+          width: calc(100%);
+          position: relative;
+          align-items: center;
+          cursor: pointer;
+          z-index: 2;
+          // padding: 0px 0px 0px 10px;
+
+          a {
+            color: #4a4a4a;
+            display: contents;
+          }
+          
+          &::before {
+            content: "";
+            width: 2px;
+            height: 70%;
+            top: 15%;
+            // border: 1px solid #4a4a4a;
+            background-color: #4a4a4a;
+            position: absolute;
+            left: calc(100% + 11px);
+          }
+        }
+
+        i {
+          font-size: 15px;
+          position: relative;
+          margin-right: 18px;
+        }
+
+        span {
+          font-size: 15px;
+          font-weight: normal;
+        }  
+
+      }   
+
+    }
+
+    &-footer {
+      line-height: 5px;
+      font-size: 13px;
+      position: absolute;
+      bottom: 70px;
+    }
+}
