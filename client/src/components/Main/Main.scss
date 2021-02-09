@@ -13,9 +13,10 @@
         // right: 20px;
         position: relative;
         width: 100%;
-        top: 25px;
+        top: 15px;
         padding: 0px 60px;
         box-sizing: border-box;
+        align-items: center;
         
         &-dir {
             color: #2BA6A2;
@@ -26,10 +27,9 @@
 
 
         &-head {
-            position: absolute;
+            position: relative;
             top: 0;
             right: 0px;
-            transform: translate(-50%);
             // height: 50px;
             display: flex;
             justify-content: space-between;
@@ -37,11 +37,55 @@
             z-index: 1000;
             cursor: pointer;
             
-            $height: 50px;
+            $height: 10px;
+
+            &-navbar {
+                display: flex;
+                position: relative;
+                margin-right: 35px;
+    
+                li {
+                    color: $color;
+                    cursor: pointer;
+                    font-size: 20px;
+                    margin-left: 2px;
+    
+                    &:active {
+                        color: #000;
+                    } 
+    
+                    span {
+                        margin-right: 10px;
+
+                        i {
+                            font-size: 20px;
+                            color: #C4C4C4
+                        }
+                    }
+                }         
+            }   
+
+            &-avatar {
+                width: 40px;
+                height: 40px;
+                overflow: hidden;
+                display: block;
+                border-radius: 50%;
+                margin-right: 15px;
+
+                img {
+                    height: 110%;
+                    position: relative;
+                    top: -5%;
+                    left: -5%;
+                }
+            }
 
             
             h3 {
                 margin: 0;
+                font-weight: normal;
+                font-size: 17px;
             }
 
             
@@ -54,7 +98,7 @@
                 color: $color;
                 position: relative;
                 margin-left: 10px;
-                font-size: 14px;
+                font-size: 13px;
             }
 
             &-wrap {
@@ -74,7 +118,7 @@
             }
         }
 
-        &-list {
+        &-menu {
             display: none;
 
             &-active {
@@ -90,48 +134,9 @@
                 // border: 1px solid $color;
                 border-radius: 5px; 
                 line-height: 30px;
-
-                .music__main-header-head span i {
-                    position: relative;
-                    transform: rotate(180deg);
-                    display: block;
-                }
-
-                li {
-                    width: 100%;
-                    border-bottom: .2px solid $color;
-                    padding: 2px;
-                    color: $color;
-                    cursor: pointer;
-                    font-size: 15px;
-
-                    &:active {
-                        color: #000;
-                    } 
-
-                    span {
-                        margin-right: 10px;
-                    }
-                    
-                    a {
-                        color: $color;
-                    }
-                }
-
-                &:before {
-                    content: "";
-                    position: absolute;
-                    top: -5.5px;
-                    right: calc(50% - 5px);
-                    width: 10px;
-                    height: 10px;
-                    background: #f4f6f8;
-                    // border-left: 1px solid $color;
-                    // border-top: 1px solid $color;
-                    transform: rotate(45deg);
-                }
             }
         }
+
     }
 
 

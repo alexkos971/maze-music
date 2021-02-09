@@ -1,15 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { Route, Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 import { Context } from '../context';
 
-import LogoImg from '../assets/img/maze_2.png';
+import { changeAuth } from '../redux/actions';
 
-const AuthPage = () => {
+import { ReactComponent as Logo } from '../assets/img/Logo.svg';
+
+const AuthPage = ({ dispatch, authType }) => {
 
     const [form, setForm] = useState({
         name: '', email: '', password: ''
     });
+    const history = useHistory();
+    const ref = useRef('input_teg')
 
     const [ load, setLoad ] = useState(false);
 
@@ -26,9 +33,12 @@ const AuthPage = () => {
             const data = await request('/api/auth/register', 'POST', {...form});
             if (data) {
                 auth.login(data.token, data.userId, data.name, data.email);
+                message(data.message)
+                history.push('/auth')
             }
         }
         catch (e) {
+            message(e.message)
         }
     }
 
@@ -38,15 +48,36 @@ const AuthPage = () => {
             if (data) {
                 auth.login(data.token, data.userId, data.name, data.email);
             }
+            
         }
         catch (e) {
-
+            message(e.message)
         }
     }
 
-    useEffect(() => {
-        message(error);
-    }, [error, message]);
+    const recoveryHandler = async () => {
+        try {
+            if (!authType) {
+                const data = await request('/api/auth/checkEmail', 'POST', { email: form.email});
+
+                if (data) {
+                    dispatch(changeAuth(true));
+                    console.log(ref.current.value)
+                }
+
+            }
+            else {
+
+                const pass = await request('/api/auth/recovery', 'POST', { password: form.password});
+                if (pass) {
+                    history.push('/auth')
+                }
+            }
+        }
+        catch (e) {
+            message(e.message)
+        }
+    }
 
     setTimeout(() => {
         setLoad(true);
@@ -54,20 +85,46 @@ const AuthPage = () => {
 
     return (
         <div className="music__auth">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+            {/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/> */}
+            {/* <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>   */}
 
             <div className={`music__auth-logo`}>
-                <img src={LogoImg} alt="" />
-                <h1>Maze music</h1>
+                <Logo />
             </div>
             <div className="music__auth_bg"></div>
             
         {load &&  
 
             <div className="music__auth-form">
-                <h1>Login or register</h1>
+
+            <Route path="/auth">
+                <h1>Login</h1>
                 
+                <form>
+                    <input 
+                        type="text" 
+                        placeholder="example@gmail.com"
+                        id="email"
+                        name="email"
+                        onChange={changeHandler}/>
+
+                    <input 
+                        type={"password"}
+                        placeholder="11111111"
+                        id="password"
+                        name="password"
+                        onChange={changeHandler}/>
+
+                    <div className="music__auth-form-btns">
+                        <button onClick={loginHandler} disabled={loading}>Login</button>
+                        <Link to="/register" id="btn_nonreg">Register</Link>
+                    </div>
+                </form> 
+            </Route>
+
+            <Route path="/register">
+                <h1>Register</h1>
+
                 <form>
                     <input 
                         type="text" 
@@ -91,13 +148,60 @@ const AuthPage = () => {
                         onChange={changeHandler}/>
 
                     <div className="music__auth-form-btns">
-                        <button onClick={loginHandler} disabled={loading}>Войти</button>
-                        <button onClick={registerHandler} disabled={loading}>Зарегестрироваться</button>
+                    <button onClick={registerHandler} disabled={loading}>Register</button>
+                        <Link to="/auth" id="btn_nonreg">Login</Link>
                     </div>
                 </form>
-            </div>}
+            </Route>
+
+            <Route path="/recovery">
+                <h1>Recovery password</h1>
+
+                {!authType ? 
+                    <form>
+                        <input 
+                            type="text" 
+                            placeholder="example@gmail.com"
+                            id="email"
+                            name="email"
+                            ref={ref}
+                            onChange={changeHandler}/>
+
+                        <div className="music__auth-form-btns">
+                            <button onClick={recoveryHandler} disabled={loading}>Send</button>
+                        </div>
+                    </form>
+                : 
+                
+                    <form>
+                        <input 
+                            type="text" 
+                            placeholder="password"
+                            id="password"
+                            name="password"
+                            onChange={changeHandler}/>
+
+                        <div className="music__auth-form-btns">
+                            <button onClick={recoveryHandler} disabled={loading}>Send</button>
+                        </div>
+                    </form>
+                }
+            </Route>
+
+            <Link to="/recovery">
+                <span className="music__auth-form-forgot">Forgot password ?</span>
+            </Link>
+            
+            </div>
+            }
         </div>
     );
 }
 
-export default AuthPage;
+const mapStateToProps = (state) => {
+    return {
+        authType: state.changeDir.auth
+    }
+}
+
+export default connect(mapStateToProps)(AuthPage);

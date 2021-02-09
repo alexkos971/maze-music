@@ -12,7 +12,7 @@ export const useAuth = () => {
         setUserId(id);
         
         localStorage.setItem(storageName, JSON.stringify({
-            token: jwtToken, userId: id, name, email
+            token: jwtToken, userId: id, name, email, avatar: 'https://iruimbatam.com/img/no-user-image.jpg'
         }));
 
         setProfile(JSON.parse(localStorage.getItem(storageName)));

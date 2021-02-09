@@ -4,7 +4,7 @@ import './Artist.scss';
 
 import { useHttp } from '../../../../hooks/http.hook';
 
-const Artist = ({ setDir }) => {
+const Artist = ({ }) => {
     
     let id = useParams().id;
     const {request, loading} = useHttp();
@@ -20,7 +20,6 @@ const Artist = ({ setDir }) => {
         getArtist();
     }, [getArtist])
     
-    setDir('Artist')
 
     if (loading) {
         return (
@@ -33,7 +32,7 @@ const Artist = ({ setDir }) => {
         <div className="music__main-artist">
 
             <div className="music__main-artist-desk">
-                <img src={artist.img} alt=""/>
+                <img src={artist.avatar} alt=""/>
                 
                 <h1>{artist.name}</h1>
 

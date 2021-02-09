@@ -122,17 +122,19 @@
             display: none;
             width: 50px;
             height: 2px;
+            border-radius: 5px;
             -webkit-appearance: none;
             margin-left: 5px;
             cursor: pointer;
-            background-color: #2BA6A2;
+            background-color: #bfbfbf;
             
             &::-webkit-slider-thumb {
                 -webkit-appearance: none;
                 height: 8px;
                 width: 8px;
-                border-radius: 3px;
-                background-color: #fff;
+                border-radius: 4px;
+                border: 2px solid #bfbfbf;
+                background-color: #0f1626;
                 cursor: pointer;
 
                 // &:hover {
@@ -140,7 +142,7 @@
                 // }
 
                 &:active {
-                    background-color: #2BA6A2;
+                    background-color: #bfbfbf;
                 }
             }
             

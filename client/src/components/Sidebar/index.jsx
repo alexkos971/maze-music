@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
+import { connect } from 'react-redux';
+
+import { changeDir } from '../../redux/actions';
+
 import { Context } from '../../context';
 import './Sidebar.scss';
 import { NavLink} from 'react-router-dom';
-import Logo from '../../assets/img/maze_2.png';
+import { ReactComponent as Logo } from '../../assets/img/Logo.svg';
 
-const Sidebar = ({ setTitle, dir, setHeader }) => {
-    let {sidebar} = useContext(Context);
+const Sidebar = ({ directory, dispatch }) => {
+    let { sidebar } = useContext(Context);
 
     return (
         <div className="music__sidebar">
             
             <div className="music__sidebar-logo">
-                <img src={Logo} alt="Logo"/>
-                <h2>MAZE MUSIC</h2>
+                <Logo />
+                {/* <h2>MAZE MUSIC</h2> */}
+                {/* <p>{this.value}</p> */}
             </div>
                 {/* <h4 className="music__sidebar-title">Library</h4> */}
                 
@@ -22,10 +27,9 @@ const Sidebar = ({ setTitle, dir, setHeader }) => {
                         <li 
                             key={item.id} 
                             onClick={() => {
-                                setTitle(item.name)
-                                setHeader(false);
+                                dispatch(changeDir(item.name))
                             }} 
-                            className={item.name === dir ? "active" : ""}>
+                            className={item.name === directory ? "active" : ""}>
                             
                             <NavLink to={item.name}>
                                 <i className={`fas fa-${item.icon}`}></i>
@@ -49,4 +53,10 @@ const Sidebar = ({ setTitle, dir, setHeader }) => {
     );
 }
 
-export default Sidebar;
+const mapStateToProps = (state) => {
+    return {
+        directory: state.changeDir.dir
+    }
+}
+
+export default connect(mapStateToProps)(Sidebar);
