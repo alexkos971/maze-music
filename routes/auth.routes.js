@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
+// import Email from 'email-templates';
 const User = require('../models/User');
 
 // Register
@@ -17,11 +18,15 @@ router.post('/register',
         const errors = validationResult(req);
         if (!errors.isEmpty()) return res.status(400).json({ error: errors.array, message: 'Некорректные данные при регистрации' });
 
-        const {name, email, password} = req.body;
+        const {name, email, password } = req.body;
 
         const candidate = await User.findOne({ email });
         if (candidate) {
             return res.status(400).json({ message: 'Такой пользователь уже существует' });
+        }
+
+        if (!name.length) {
+            return res.status(400).json({ message: "Укажите имя" });
         }
         const hashedPassword = await bcrypt.hash(password, 12);
         const user = new User({ email, password: hashedPassword, name });
@@ -31,7 +36,7 @@ router.post('/register',
         res.status(201).json({ name: name, email: email, message: 'Пользователь создан' });
     }
     catch (e) {
-        res.status(500).json({ message: 'Что-то пошло не так...' });
+        res.status(500).json({ message: `Что-то пошло не так...${e}` });
     }
 });
 
@@ -51,7 +56,7 @@ router.post('/login',
             });
         }
 
-        const { name, email, password } = req.body;
+        const { email, password } = req.body;
 
         const user = await User.findOne({ email });
         if (!user) {
@@ -68,11 +73,28 @@ router.post('/login',
             config.get('jwtKey'),
             {});
 
-        res.json({ name, email, token, userId: user.id });
+        res.json({ email, token, userId: user.id })
     }
     catch (e) {
         res.status(500).json({ message: 'Что-то пошло не так...' });
     }
 });
+
+// Recovery
+router.post('/checkEmail', async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const check = await User.findOne({ email })
+        if (check) {
+            res.status(200).json({ message: req.body })
+
+        }
+        res.status(404).json({ message: 'Пользователь не найден' })
+    }
+    catch (e) {
+        res.status(500).json({ message: 'Что-то пошло не так...' })
+    }
+})
 
 module.exports = router;

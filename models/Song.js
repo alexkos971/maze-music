@@ -1,20 +1,20 @@
 const {Schema, Types, model} = require('mongoose');
 
-const shema = new Schema({
-    id: {type: Types.ObjectId, required: true, unique: true},
+let shema = new Schema({
     name: {type: String, required: true},
-    artist: [
-        {type: String, required: true},
-        {type: Types.ObjectId, required: true, ref: "User"}
-    ],
-    albums: {type: String, required: true},
-    lyrics: {type: String},
-    src: {type: String, required: true, unique: true},
+
+    artist_name: {type: String, required: true},
+    artist_id: {type: Types.ObjectId, ref: "User"},
+    
+    album_name: { type: String },
+    album_id : { type: Types.ObjectId, ref: "Album", default: Types.ObjectId },
+
+    lyrics: {type: String, default: ""},
+    src: {type: String, required: true},
+    // duration: {type: String, default: '0:00' },
     date: {type: Date, default: Date.now()},
-    cover: {type: String, required: true, unique: true},
-    owner: [{
-        type: Types.ObjectId, ref: 'User', required: true
-    }]
+    cover: {type: String, default: "https://fwrental.com/wp-content/uploads/2019/02/retro-record-rug.jpg"},
+    listenings: { type: Number, default: 0 }
 })
 
 

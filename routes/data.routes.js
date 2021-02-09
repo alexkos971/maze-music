@@ -28,11 +28,14 @@ router.get('/artist/:id', async (req, res) => {
 });
 
 // GET User
-router.get('/my', auth, async (req, res) => {
+router.get('/profile', auth, async (req, res) => {
     try {
         const me = await User.findOne({ _id: req.user.userId});
+
         if (me) {
-            res.json({ name: me.name, saved: me.saved });
+            // let profile = Object.assign(me._doc, { avatar });
+
+            res.send(me);
         }
     }
     catch (e) {

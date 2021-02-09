@@ -1,21 +1,28 @@
 const {Schema, Types, model} = require('mongoose');
 
-const shema = new Schema({
+let shema = new Schema({
     name: {type: String, required: true},
-    listenings: {type: Number, default: 0},
-    albums: {type: Number, default: 0},
-    img: {type: String, required: true, default: 'https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxR21EoY7T_GZpDBwrrF3W6uw'},
-    followers: [{type: Types.ObjectId, ref: 'User', default: 0}],
-    songs: [{ type: Types.ObjectId, default: 0}],
-    albums: [{ type: Types.ObjectId, ref: 'Song', default: 0}],
-    saved: {
-        songs: [{ type: Types.ObjectId, unique: true, ref: 'Song'}],
-        albums: [{ type: Types.ObjectId }],
-        artists: [{ type: Types.ObjectId, unique: true, ref: 'User' }]
-    },
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    songs: [{ type: Types.ObjectId, ref: 'Song'}]
+
+    avatar: {type: String, default: 'https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxR21EoY7T_GZpDBwrrF3W6uw'},
+    listenings: { type: Number, default: 0 },
+    followers: [{ type: Number, default: 0 }],
+    
+    saved_songs: [{ type: Types.ObjectId, ref: 'Song'}],
+    saved_artists: [{ type: Types.ObjectId, ref: 'User'}],
+    saved_albums: [{ type: Types.ObjectId, ref: 'Album'}],
+    saved_playlists: [{ type: Types.ObjectId, ref: 'Playlist'}],
+    
+    playlists: [{ type: Types.ObjectId, ref: 'Playlist'}],
+    songs: [{
+        type: Types.ObjectId,
+        ref: 'Song'
+    }],
+    albums: [{
+        type: Types.ObjectId,
+        ref: 'Album'
+    }]
 })
 
 module.exports = model('User', shema);
