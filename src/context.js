@@ -41,7 +41,7 @@ export let Context = React.createContext({
         "icon": "cloud-upload-alt",
         "id": 7
       }],
-    defaultPage: "Upload",
+    defaultPage: "For you",
     login: noop,
     my: {},
     logout: noop

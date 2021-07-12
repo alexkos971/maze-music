@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import { Route, Redirect, Link } from 'react-router-dom';
+import { Route, Redirect, Link, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './Main.scss';
 import { Context } from '../../context';
+import { useMessage } from "../../hooks/message.hook";
 
 // Redux
-import { setNight, setHeader, getProfile, changeDir } from '../../redux/actions'
+import { setNight, setHeader, changeDir } from '../../redux/actions'
 
 // Selectors
 import FullPlayer from '../Main/FullPlayer';
@@ -20,9 +21,11 @@ import Profile from './Profile';
 import Settings from './Settings';
 // import Artist from './Pages/Artist';
 
-const Main = ({ dispatch, directory, onSaveSong, onSavePlaylist, night, header, profile }) => {
+const Main = ({ dispatch, onSavePlaylist, night, header, profile, path }) => {
     
     let { logout, token } = useContext(Context);
+    const directory = useLocation()
+    const message = useMessage();
 
 
     return (
@@ -32,15 +35,13 @@ const Main = ({ dispatch, directory, onSaveSong, onSavePlaylist, night, header, 
 
             <div className="music__main-header">
             
-                <span className="music__main-header-dir">{directory}</span>
+                <span className={`music__main-header-dir`}>{path}</span>
 
 
                 <div className="music__main-header-head">
-                    <ul className={`music__main-header-head-navbar`}>
+                    <ul className={`music__main-header-head-navbar${directory.pathname === "/Profile" && night ? " dark" : ""}`}>
                         <li>
-                            <Link to={"/settings"} onClick={() => {
-                                dispatch(changeDir('Settings'))
-                            }}>
+                            <Link to={"/Settings"} onClick={() => dispatch(changeDir("Settings"))}>
                                 <span><i className="fas fa-sliders-h"></i></span>
                             </Link>
                         </li>
@@ -48,16 +49,14 @@ const Main = ({ dispatch, directory, onSaveSong, onSavePlaylist, night, header, 
                             <span><i className={`fas fa-${!night ? "sun" : "moon"}`}></i></span>
                         </li>
 
-                        <li>
+                        <li onClick={() => message("Уведомления вкдючены")}>
                             <span><i className={`fas fa-bell`}></i></span>
                         </li>
                     </ul>
 
-                    <Link to={"/profile"} onClick={() => {
-                                dispatch(changeDir('Profile'))
-                            }}>
+                    <Link to={"/Profile"} onClick={() => dispatch(changeDir("Profile"))}>
                         <div className="music__main-header-head-avatar">
-                            <img src={profile.avatar} />
+                            <img src={profile.avatar} alt="avatar"/>
                         </div>
                     </Link>
 
@@ -89,40 +88,19 @@ const Main = ({ dispatch, directory, onSaveSong, onSavePlaylist, night, header, 
             </Route>
 
 
-            <Route path={"/Playlists"} exact>
-                <Playlists/>
-            </Route>
+            <Route path={"/Playlists"} exact component={Playlists}/>
 
             <Route path={"/For you"} exact>
                 <For
-                    onSavePlaylist={onSavePlaylist}
-                    onSaveSong={onSaveSong} />
+                    onSavePlaylist={onSavePlaylist}/>
             </Route>
 
-            <Route path={"/Artist:id"} exact>
-                <Artist/>
-            </Route> 
-
-            <Route path={"/Albums"} exact>
-                <Albums/>
-            </Route>
-
-            <Route path={"/Songs"} exact>
-                <Songs 
-                    onSaveSong={onSaveSong} />
-            </Route>
-
-            <Route path={"/Upload"}>
-                <Upload />
-            </Route>
-
-            <Route path={"/profile"} exact>
-                <Profile/>
-            </Route>
-
-            <Route path="/settings">
-                <Settings />
-            </Route>
+            <Route path={"/Artist/:id"} exact component={Artist}/>
+            <Route path={"/Albums"} exact component={Albums}/>
+            <Route path={"/Songs"} exact component={Songs}/>
+            <Route path={"/Upload"} component={Upload}/>
+            <Route path={"/Profile"} exact component={Profile}/>
+            <Route path="/Settings" component={Settings}/>
         </div>
     );
 }
@@ -130,12 +108,12 @@ const Main = ({ dispatch, directory, onSaveSong, onSavePlaylist, night, header, 
 const mapStateToProps = (state) => {
     
     return {
-        directory: state.changeDir.dir,
         start: state.onPlay.start,
         song: state.songs.song,
         night: state.interface.night,
         header: state.interface.header,
-        profile: state.profile.profile
+        profile: state.profile.profile,
+        path: state.interface.path
     }
 }
 

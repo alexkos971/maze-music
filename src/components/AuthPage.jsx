@@ -10,7 +10,7 @@ import { changeAuth } from '../redux/actions';
 
 import { ReactComponent as Logo } from '../assets/img/Logo.svg';
 
-const AuthPage = ({ dispatch, authType, directory }) => {
+const AuthPage = ({ dispatch, authType, path }) => {
 
     const [form, setForm] = useState({
         name: '', email: '', password: ''
@@ -47,7 +47,7 @@ const AuthPage = ({ dispatch, authType, directory }) => {
             const data = await request('/api/auth/login', 'POST', {...form});
             if (data) {
                 auth.login(data.token, data.userId, data.name, data.email);
-                history.push(directory)
+                history.push(path)
             }
             
         }
@@ -202,8 +202,8 @@ const AuthPage = ({ dispatch, authType, directory }) => {
 
 const mapStateToProps = (state) => {
     return {
-        authType: state.changeDir.auth,
-        directory: state.changeDir.dir
+        authType: state.interface.auth,
+        path: state.interface.path
     }
 }
 

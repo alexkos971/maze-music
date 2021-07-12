@@ -1,60 +1,69 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useCallback } from 'react';
 
 import { connect } from 'react-redux';
-import { getRecomendSongs, onPlay, itemDuration } from '../../../../redux/actions';
+import { getRecomendSongs, getRecomendArtists } from '../../../../redux/actions';
 
-import Slider from 'react-slick';
+import SongsTemp from "../../SongsTemp";
+import CardsTemp from "../../CardsTemp";
 
 import { useHttp } from '../../../../hooks/http.hook';
 
 import './For.scss';
-import { leftIcon, rightIcon, downloadIcon } from '../../images';
 
-const For = ({ dispatch, start, songs, song, onSaveSong, onSavePlaylist, save, duration  }) => {
+const For = ({ dispatch, recomendSongs, recomendArtists,savedSongs }) => {
     
-    const [artists, setArtists] = useState([]);
     const { loading, request } = useHttp();
 
-    // Get list of songs
-    const getSongs = useCallback(async () => {
+    // // Get list of songs
+    const getSongs = useCallback(async (list) => {
         try {
-            dispatch(getRecomendSongs(await request(`/api/songs/recomendation`, 'GET')))
+            if (!list.length) {
+                let data = await request(`/api/songs/recomendation`, 'GET');
+                    if (data && savedSongs) {
+                        dispatch(getRecomendSongs(data))
+                    }
+                    else {
+                        return <h1>Loading...</h1>
+                    }
+                }
+                else {
+                    dispatch(getRecomendSongs(list))
+            }
         }
-        catch (e) {}
-    } ,[request, dispatch]);
+        catch (e) { console.error(e) }
+    } ,[request, dispatch, savedSongs]);
+    
+    useEffect(() => {
+        getSongs(recomendSongs);
+    }, [dispatch, getSongs, recomendSongs]);
+    
+
+    
+    const getArtists = useCallback(async (list) => {
+        try {
+            if (!list.length) {
+                const data = await request('/api/users/artists', 'GET');
+                
+                if (data) {
+                    dispatch(getRecomendArtists(data))
+                }
+                else {
+                    return <h1>Loading...</h1>
+                }
+            }
+            else {
+                dispatch(getRecomendArtists(list))
+            }
+        }
+        catch (e) { console.error(e) }
+    } , [request, dispatch]);
 
     useEffect(() => {
-        getSongs();
-    }, [getSongs, dispatch]);
+        getArtists(recomendArtists);
+    }, [dispatch, recomendArtists, getArtists]);
 
 
 
-    const getArtists = useCallback(async () => {
-        const data = await request('/api/data/artists', 'GET');
-        setArtists(data);
-    } , [request]);
-
-    useEffect(() => {
-        getArtists();
-    }, [getArtists]);
-
-
-    // For slider
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        prevArrow: <div className="slider-arrow slick-prev">
-                        <img src={leftIcon} alt="leftIcon"/>
-                    </div>,
-        nextArrow: <div className="slider-arrow slick-next">
-                        <img src={rightIcon} alt="rightIcon"/>
-                    </div>,
-        arrows: true,
-        slidesToShow: 3,
-        slidesToScroll: 1
-      };
 
     if (loading) {
         return (
@@ -65,39 +74,23 @@ const For = ({ dispatch, start, songs, song, onSaveSong, onSavePlaylist, save, d
     return (
         <div className="music__main-for">
             
-            {artists.length && <div>
-                <h2 className="subtitle">Artists for you</h2>
-
-                <Slider {...settings}>
-                {!loading && artists.map(item => {
-                    return (
-                            <div className="music__main-for-slider-item" key={item.name}>
-                                <Link to={`Artist:${item._id}`}>
-                                    <img src={item.avatar} alt="" className="slider_img" />
-                                    <h2 className="music__main-for-slider-item_artist">{item.name}</h2>
-                        
-                                    <div className="music__main-for-slider-item_desk">
-                                        <span>{item.albums.length} Albums | </span>
-                                        <span>{(item.listenings/100000).toFixed(1)}M Followers</span> 
-                                    </div>    
-                                </Link>        
-                            </div> 
-
-                        );
-                    })
-                }
-                </Slider>
-            </div>}
+            { recomendArtists.length && 
+                <div className="music__main-artist-artists">
+                    <h2 className="subtitle">Artists for you</h2>
+                    
+                    <CardsTemp items={recomendArtists} to="Artists" />
+                </div>
+            }
 
             <div className="music__main-songs">
                 <div className="music__main-songs-nav">
                     <h2 className="subtitle">Music for you</h2>
 
-                    <div className="music__main-songs-nav-bar">
+                    {/* <div className="music__main-songs-nav-bar">
                         <span onClick={() => onSavePlaylist(save, {
                             "name": "Most popular",
                             "cover": song.cover,
-                            "data": songs
+                            "data": recomendSongs
                         })}>
                             <i className="far fa-heart"></i>
                         </span>
@@ -109,56 +102,12 @@ const For = ({ dispatch, start, songs, song, onSaveSong, onSavePlaylist, save, d
                         <span>
                             <i className="far fa-share-square"></i>
                         </span>
-                    </div>
+                    </div> */}
                 </div>
 
-                <ol className="music__main-songs-list">
-                    {!loading &&
-                        songs.map((item, index) => {
-                            
-                            return (
-                                <li key={index} id={(song && song._id === item._id) ? "now_play" : ''}>
-                                    <i className={`fas fa-${(start && song._id === item._id)  ? "pause" : "play"}-circle play_btn`} 
-                                        onClick={() => {
-                                            dispatch(onPlay(item));
-                                        }}>
-                                    </i>
-
-                                    <span className="music__main-songs-list_name">
-                                        <Link to={`Artist:${item.artist_id}`} className="music__main-songs-list-link">
-                                            <span className="music__main-songs-list_artist-name">
-                                                {item.artist_name}
-                                            </span>
-                                            <span> - </span>
-                                        </Link>
-                                        {item.name}
-                                    </span>
-
-                                    <div className="music__main-songs-list_right">
-                                        <a href={item.src} download>
-                                            <span className="music__main-songs-list_right-download">
-                                                <img src={downloadIcon} alt=""/>
-                                            </span>
-                                        </a>
-
-                                        <span className="music__main-songs-list_right-save"
-                                            onClick={() => {
-                                                onSaveSong(item)
-                                                dispatch(getRecomendSongs(songs))
-                                            }}>
-                                            <i className={`fa${item.saved ? 's' : 'r'} fa-heart`}></i>
-                                        </span>
-                                        
-                                        <span className="music__main-songs-list_right-time_now">
-                                            { item.duration}
-                                        </span>
-                                    </div>
-
-                                </li>
-                            );
-                        })
-                    }
-                </ol>
+                {recomendSongs &&
+                    <SongsTemp songs={recomendSongs}/>
+                }
             </div>
         </div>
         
@@ -168,8 +117,9 @@ const For = ({ dispatch, start, songs, song, onSaveSong, onSavePlaylist, save, d
 const mapStateToProps = state => {
     return {
         start: state.onPlay.start,
-        duration: state.getDuration.itemDuration,
-        songs: state.songs.recomendSongs,
+        recomendSongs: state.songs.recomendSongs,
+        recomendArtists: state.artists.recomendArtists,
+        savedSongs: state.profile.profile.saved_songs,
         song: state.onPlay.song,
         save: state.songs.save
     }

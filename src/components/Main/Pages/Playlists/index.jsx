@@ -1,16 +1,15 @@
-import React, { useState, useEffect} from 'react';
-import { NavLink} from 'react-router-dom';
-import axios from "axios";
+import React from 'react';
+// import { NavLink} from 'react-router-dom';
 
 import './Playlist.scss';
 
 const Playlists = () => {
-    const [data, setData] = useState([])
+    // const [data, setData] = useState([])
 
-    useEffect(() => {
-     axios.get("http://localhost:3001/playlists/")
-        .then(({ data }) => setData(data));   
-    }, [])
+    // useEffect(() => {
+    //  axios.get("http://localhost:3001/playlists/")
+    //     .then(({ data }) => setData(data));   
+    // }, [])
 
 
     return (
@@ -18,7 +17,7 @@ const Playlists = () => {
             <h2 className="subtitle">My playlists</h2>
 
             <ul className="music__main-playlist-list">           
-                {
+                {/* {
                     (data) ? (
                         data.map((item) => {
                             return (
@@ -45,7 +44,7 @@ const Playlists = () => {
                             )
                         })
                     ) : (<h2 className="subtitle">Error</h2>)
-                }
+                } */}
             </ul> 
         </div>
     )

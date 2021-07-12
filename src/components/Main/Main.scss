@@ -17,6 +17,8 @@
         padding: 0px 60px;
         box-sizing: border-box;
         align-items: center;
+        z-index: 1;
+        // border: 1px solid #000;
         
         &-dir {
             color: #2BA6A2;
@@ -62,7 +64,15 @@
                             color: #C4C4C4
                         }
                     }
-                }         
+                }     
+                
+                &.dark {
+
+                    li span i {
+                        color: #393E46;
+
+                    }
+                }
             }   
 
             &-avatar {
@@ -84,13 +94,16 @@
             
             h3 {
                 margin: 0;
-                font-weight: normal;
-                font-size: 17px;
+                // font-weight: normal;
+                font-family: "Roboto", "Manrope";
+                font-size: 16px;
+                color: #393E46;
             }
 
             
             i {
                 transition: .1s all ease;
+                color: #393E46;
             }
             
 
@@ -249,152 +262,27 @@
             }
         }
     }
-    
 
     &-songs {
-        width: 60%;
-        position: relative;
+        width: calc(100% - 120px);
         margin-top: 30px;
-        padding: 0;
+        position: relative;
 
         &-nav {
-            width: 100%;
-            position: relative;
-            margin: 0;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
 
             &-bar {
-                width: 15%;
+                width: 10%;
                 display: flex;
                 justify-content: space-between;
-
-                span {
-                    color: #8e8e8e;
-                    cursor: pointer;
-                    font-size: 18px;
-
-                    &:hover {
-                        color: #000;
-                    }
-                }
-            }
-        }
-
-        &-list {
-            width: 100%;
-            line-height: 50px;
-            display: block;
-            padding-left: 0;
-            margin: 0;
-            counter-reset: item;
-
-            #now_play {
-                color: #2BA6A2;
-
-                &:active .play_btn {
-                    font-size: 32px;
-                }
-
-                &::before {
-                    content: '';
-                }
-
-                .play_btn {
-                    opacity: 1;
-                    color: #2BA6A2;
-                    margin-right: 11.5px;
-                    transform-origin: center;
-                }
-            }
-
-            &_artist-name {
-                font-weight: bold;
-
-                &:hover {
-                    font-weight: normal;
-                }
-            }
-
-            &-link {
-                color: #000;
-                cursor: pointer;
-                font-size: 14px;
-            }
-
-            .play_btn {
-                display: block;
-                opacity: 0;
-                cursor: pointer;
-                position: relative;
-                right: 10px;
-                font-size: 30px;
-                color: $color;
-            }
-
-            li {
-                // width: 100%;
-                position: relative;
-                align-items: center;
-                display: flex;
-                transition: .2s all ease;
-                // border-bottom: .5px solid #e8e8e8; 
-                border-radius: 7px;
-                font-weight: normal;
-                cursor: pointer;
-                box-sizing: border-box;
-                font-size: 14px;
-                padding-left: 20px;
-
-                &:hover .play_btn {
-                    opacity: 1;
-                    color: #2BA6A2;
-                    margin-right: 11.5px;
-                }
-                &:hover {
-                    color: $color;
-                    background: rgba(0, 0, 0, 0.05);
-                }
-
-                &:hover::before {
-                    content: "";
-                }
-
-                &::before {
-                    content: counter(item) '.';
-                    counter-increment: item;
-                }
-            }
-
-            &_right {
-                position: absolute;
-                right: 13px;
-                width: 100px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                &-download img {
-                    width: 17px;
-                    height: 17px;
-                    position: relative;
-                    transform: translate(0%, 15%);
-                    align-self: center;
-                }
-
-                &-save {
-                    font-size: 18px;
-                    color: $color;
-                }
-
-                &-time_now {
-                    font-weight: 100;
-                    color: #8e8e8e;
-                }
+                color: #393E46;
+                font-size: 18px;
             }
         }
     }
+    
 }   
 
 

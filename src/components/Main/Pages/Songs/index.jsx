@@ -1,17 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { setSavedSongs, onPlay, saveSong } from '../../../../redux/actions'
+import { onPlay, saveSong } from '../../../../redux/actions'
 import { connect } from 'react-redux';
 
 import { useHttp } from '../../../../hooks/http.hook';
-import { Context } from '../../../../context';
 import { downloadIcon } from '../../images';
 import './Songs.scss';
 
 const Songs = ({  dispatch, savedSongs, song, start }) => {
     
-    const { loading, request } = useHttp();
+    const { loading } = useHttp();
  
 
     return (

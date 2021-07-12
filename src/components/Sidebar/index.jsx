@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
-import { connect } from 'react-redux';
-
-import { changeDir } from '../../redux/actions';
-
+import { useLocation } from "react-router-dom";
+import { connect } from "react-redux";
+import { changeDir } from "../../redux/actions"
+ 
 import { Context } from '../../context';
 import './Sidebar.scss';
 import { NavLink} from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/img/Logo.svg';
 import { ReactComponent as LogoTablet } from '../../assets/img/Logo_tablet.svg';
 
-const Sidebar = ({ directory, dispatch }) => {
+const Sidebar = ({ dispatch, path }) => {
     let { sidebar } = useContext(Context);
-
+    let directory = useLocation();
+ 
     return (
         <div className="music__sidebar">
             
@@ -20,19 +21,19 @@ const Sidebar = ({ directory, dispatch }) => {
 
                 <LogoTablet className="music__sidebar-logo-tablet" alt="erte"/>
             </div>
-                {/* <h4 className="music__sidebar-title">Library</h4> */}
                 
             <ul>
                 {sidebar && sidebar.map(item => {
                     return (
                         <li 
-                            key={item.id} 
-                            onClick={() => {
-                                dispatch(changeDir(item.name))
-                            }} 
-                            className={item.name === directory ? "active" : ""}>
+                            key={item.id}
+                            className={'/' + item.name === directory.pathname ? "active" : ""}>
                             
-                            <NavLink to={item.name}>
+                            <NavLink 
+                                to={`/${item.name}`} 
+                                onClick={() => {
+                                    dispatch(changeDir(item.name))
+                                }}>
                                 <span className="music__sidebar-item-icon">
                                     <i className={`fas fa-${item.icon}`}></i>
                                 </span>
@@ -56,9 +57,10 @@ const Sidebar = ({ directory, dispatch }) => {
     );
 }
 
+
 const mapStateToProps = (state) => {
     return {
-        directory: state.changeDir.dir
+        path: state.interface.path
     }
 }
 

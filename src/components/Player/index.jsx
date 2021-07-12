@@ -1,47 +1,48 @@
-import React, { useState,  useEffect, useRef } from 'react';
+import React, { useState,  useEffect, useRef, useCallback } from 'react';
 import { connect } from 'react-redux';
-import { onPlay, setDuration, setFullPlayer, setNowSong } from '../../redux/actions';
+import { setDuration, itemDuration, setFullPlayer, setStart } from '../../redux/actions';
 
 import './Player.scss';
 
 
-const Player = ({ dispatch, start, full, song, duration, currentDuration,  onSaveSong, fullScreen, setFullScreen }) => { 
+const Player = ({ dispatch, start, full, song, songFrom, currentDuration, fullScreen, setFullScreen }) => { 
 
     const [stateVolume, setStateVolume] = useState(5);
-
-    useEffect(() => {
-        audio.current.volume = stateVolume / 100;
-    }, [stateVolume]);
-    
-
-    // const songTime = s => {
-    //     let temp = timeTemplate(s);
-    //     return temp;
-    // }  
+    const [inputDuration, setInputDuration] = useState(0)
 
     // Play Audio
     const audio = useRef('audio_tag');
 
-    let onStartPlay = async () => {
-        await dispatch(setNowSong(song))
 
+    useEffect(() => {
+        audio.current.volume = stateVolume / 100;
+    }, [stateVolume]);
+
+
+    let onStartPlay = useCallback(async () => {
         if (start) {
+            await dispatch(itemDuration(audio.current.duration))
             audio.current.play();
         }
         else {
             audio.current.pause();
         }
-    }
+
+    }, [dispatch, start])
 
     useEffect(() => {
         onStartPlay();
-    }, [start, onStartPlay])
+    }, [start, onStartPlay, dispatch])
 
+
+    const updateAudio = (e) => {
+        dispatch(setDuration(e.target.currentTime));
+        setInputDuration((audio.current.currentTime * 100) / audio.current.duration)
+    }
     
     
     const handleProgress = e => { 
         let compute = (e.target.value * audio.current.duration) / 100;
-        // setCurrent(compute); 
         dispatch(setDuration(compute))
         audio.current.currentTime = compute;
     }
@@ -54,6 +55,11 @@ const Player = ({ dispatch, start, full, song, duration, currentDuration,  onSav
             setStateVolume(elem.deltaY/stateVolume* 100)
     }
 
+    const onEnd = () => {
+        // dispatch(switchSong("next", songFrom))
+        onStartPlay()
+    }
+
     return (
         <div className="music__player">
 
@@ -61,7 +67,8 @@ const Player = ({ dispatch, start, full, song, duration, currentDuration,  onSav
                 src={song && song.src} 
                 ref={audio} 
                 type="audio/mpeg" 
-                onTimeUpdate={(e) => dispatch(setDuration(e.target.currentTime))} >
+                onTimeUpdate={(e) => updateAudio(e)}
+                onEnded={onEnd} >
             </audio>
 
             {/* <div className="music__player-artist">
@@ -74,20 +81,20 @@ const Player = ({ dispatch, start, full, song, duration, currentDuration,  onSav
                 <i className="fas fa-backward" id="play_prev" onClick={() => console.log(song)}></i>
 
                 <i className={`fas fa-${start ? "pause" : "play"}-circle play_btn`} 
-                    onClick={() => dispatch(onPlay(song))}>
+                    onClick={() => dispatch(setStart(!start))}>
                 </i>
                 
                 <i className="fas fa-forward" id="play_next" onClick={() => console.log(song)}></i>
             </div>
 
             <div className="music__player-song-desk">
-                <span className="music__player-song-desk-name">{song.name}</span>
-                <span className="music__player-song-desk-artist">{song.artist_name}</span>
+                <span className="music__player-song-desk-name">{song && song.name}</span>
+                <span className="music__player-song-desk-artist">{song && song.artist_name}</span>
             </div>
 
             <span className="music__player-toFull">
                 <i className={`fas fa-chevron-${!full ? "up" : "down"}`} onClick={() => {
-                    song.hasOwnProperty("src") && dispatch(setFullPlayer(!full))
+                    song && song.hasOwnProperty("src") && dispatch(setFullPlayer(!full))
                 }}></i>
             </span>
 
@@ -98,10 +105,11 @@ const Player = ({ dispatch, start, full, song, duration, currentDuration,  onSav
                     type="range" 
                     name="progressBar" 
                     id="music-range" 
-                    value={song.duration ? ((audio.current.currentTime * 100) / audio.current.duration) : 0}
+                    disabled={!song && true}
+                    value={inputDuration}
                     onChange={handleProgress} />
 
-                <span id="music-time_total">{song.duration}</span>
+                <span id="music-time_total">{song && song.duration}</span>
             </div>  
 
             <div className="music__player-bar">
@@ -117,8 +125,8 @@ const Player = ({ dispatch, start, full, song, duration, currentDuration,  onSav
                         onChange={(e) => setStateVolume(e.target.value / 10)} />
                 </span>
                 
-                <span onClick={() => onSaveSong(song)}>
-                    <i className={`fa${song.saved ? "s" : "r"} fa-heart`}></i>
+                <span onClick={() => alert("saved")}>
+                    <i className={`fa${song && song.saved ? "s" : "r"} fa-heart`}></i>
                 </span>
 
                 <span onClick={() => setFullScreen(!fullScreen)}  className="music__player-full">
@@ -139,11 +147,10 @@ const Player = ({ dispatch, start, full, song, duration, currentDuration,  onSav
 
 const mapStateToProps = (state) => {
     return {
-        directory: state.changeDir.dir,
         start: state.onPlay.start,
         song: state.onPlay.song,
-        currentDuration: state.getDuration.currentDuration,
-        duration: state.getDuration.duration,
+        songFrom: state.onPlay.songFrom,
+        currentDuration: state.onPlay.currentDuration,
         full: state.interface.fullPlayer
     }
 }

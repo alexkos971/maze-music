@@ -1,0 +1,210 @@
+.music__main-temp-songs {
+    $color: #8e8e8e;
+    position: relative;
+    margin-top: 30px;
+    padding: 0;
+
+    &-nav {
+        width: 100%;
+        position: relative;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &-bar {
+            width: 15%;
+            display: flex;
+            justify-content: space-between;
+
+            span {
+                color: #8e8e8e;
+                cursor: pointer;
+                font-size: 18px;
+
+                &:hover {
+                    color: #000;
+                }
+            }
+        }
+    }
+
+    &-view {
+        position: absolute;
+        right: 0px;
+        top: 10px;
+        color: #2BA6A2;
+        font-weight: 500;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    &-list {
+        width: 100%;
+        line-height: 50px;
+        display: block;
+        padding-left: 0;
+        margin: 0;
+        counter-reset: item;
+
+        #now_play {
+            color: #2BA6A2;
+
+            &:active .play_btn {
+                font-size: 32px;
+            }
+
+            &::before {
+                content: '';
+            }
+
+            .play_btn {
+                opacity: 1;
+                color: #2BA6A2;
+                margin-right: 11.5px;
+                transform-origin: center;
+            }
+        }
+
+        &-avatar {
+            // height: 90%;
+            height: 35px;
+            width: 35px;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-right: 12px;
+
+            img {
+                height: 100%;
+                width: auto;
+            }
+        }
+
+        &_artist-name {
+            font-weight: bold;
+
+            &:hover {
+                font-weight: normal;
+            }
+        }
+
+        &-link {
+            color: #000;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        &-album {
+            position: absolute;
+            left: 50%;
+        }
+
+        .play_btn {
+            display: block;
+            opacity: 0;
+            cursor: pointer;
+            position: relative;
+            right: 10px;
+            font-size: 30px;
+            color: $color;
+        }
+
+        li {
+            // width: 100%;
+            position: relative;
+            align-items: center;
+            display: flex;
+            transition: .2s all ease;
+            // border-bottom: .5px solid #e8e8e8; 
+            border-radius: 7px;
+            font-weight: normal;
+            cursor: pointer;
+            box-sizing: border-box;
+            font-size: 14px;
+            padding-left: 20px;
+
+            &:hover .play_btn {
+                opacity: 1;
+                color: #2BA6A2;
+                margin-right: 11.5px;
+            }
+            &:hover {
+                color: $color;
+                background: #F4F6F8;
+            }
+
+            &:hover::before {
+                content: "";
+            }
+
+            &::before {
+                content: counter(item) '.';
+                counter-increment: item;
+                color: #000;
+            }
+        }
+
+        &_right {
+            position: absolute;
+            right: 30px;
+            width: 130px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            &-trash {
+                font-size: 18px;
+            }
+
+            &-download img {
+                width: 17px;
+                height: 17px;
+                position: relative;
+                transform: translate(0%, 15%);
+                align-self: center;
+                margin-left: 15px;
+            }
+
+            &-save {
+                font-size: 18px;
+                color: $color;
+                margin-left: 15px;
+            }
+
+            &-time_now {
+                font-weight: 100;
+                color: #8e8e8e;
+                margin-left: 15px;
+            }
+        }
+
+        &.night {
+
+            .music__temp-songs-list {
+
+                li {
+                    
+                    &::before {
+                        color: $color;
+                    }
+                }
+
+                &_artist-name {
+                    color: $color;
+                }
+
+                &_name {
+                    color: $color;
+                }
+
+                &-right {
+                    &-trash {
+                        color: $color;    
+                    }
+                }
+            }
+    
+        }
+    }
+
+}

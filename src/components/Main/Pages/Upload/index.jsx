@@ -1,14 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './Upload.scss';
 import { connect } from 'react-redux';
-import { setNowSong, itemDuration } from '../../../../redux/actions';
+import { itemDuration, getMySongs } from '../../../../redux/actions';
 
 import { useHttp } from '../../../../hooks/http.hook';
 import { useMessage } from '../../../../hooks/message.hook';
-import { Context } from '../../../../context';
 import { useAuth } from '../../../../hooks/auth.hook';
 
-const Upload = ({ dispatch, song, duration }) => {
+const Upload = ({ dispatch, duration, songs }) => {
     
     const { loading, request } = useHttp();
     const message = useMessage();
@@ -47,8 +46,11 @@ const Upload = ({ dispatch, song, duration }) => {
             });
 
             if (data) {
-                dispatch(setNowSong(data.track))
+                const newData = songs.push(data.track)
+                await dispatch(getMySongs(newData))
+                console.log(songs)
                 message(data.message)
+                // dispatch(getMySongs(newData));
             }
         }
         catch (e) {
@@ -85,8 +87,8 @@ const Upload = ({ dispatch, song, duration }) => {
 
 const mapStateToProps = (state) => {
     return {
-        song: state.onPlay.song,
-        duration: state.getDuration.itemDuration
+        duration: state.onPlay.itemDuration,
+        songs: state.songs.mySongs
     }
 }
 

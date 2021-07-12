@@ -8,6 +8,8 @@ import { onPlay, setProfile } from './redux/actions';
 import './index.scss';
 import { useAuth } from './hooks/auth.hook';
 import { useHttp } from './hooks/http.hook';
+import { useMessage } from './hooks/message.hook';
+import Message from "./hooks/Message";
 import { Context } from './context';
 
 import Sidebar from './components/Sidebar';
@@ -15,28 +17,26 @@ import Main from './components/Main';
 import Player from './components/Player';
 import AuthPage from './components/AuthPage';
 
-function App({ dispatch, start, songs, saved_songs, song, dir, night, profile }) {
+function App({ dispatch, start, song, night, profile }) {
 
-  const { request, loading } = useHttp();
+  const { request } = useHttp();
   const { login, logout, token } = useAuth();
-
+  const { message, isVisible } = useMessage();
   let { sidebar } = useContext(Context);
-  
-  const [prevSong, setPrevSong] = useState({});
-  const [nextSong, setNextSong] = useState({});
+    
   const [fullScreen, setFullScreen] = useState(false);
 
 
   const getProfile = useCallback(async () => {
     try {
-      dispatch(setProfile(await request('/api/data/profile', 'GET', null, {
+      dispatch(setProfile(await request('/api/users/profile', 'GET', null, {
         Authorization: `Bearer ${token}`
       })));
     }  
     catch (e) {
       console.log("Не удалось загрузить профиль")
     }
-  }, [token])
+  }, [token, dispatch, request])
 
   useEffect(() => {
     if (token) {
@@ -45,63 +45,25 @@ function App({ dispatch, start, songs, saved_songs, song, dir, night, profile })
   }, [token, getProfile, dispatch]);
 
 
-  const onSaveSong = async (item) => {
-    // try {
-      // if (item.save) {
-      saved_songs.map((elem, index) => {
-        if (item._id === elem._id) {
-          saved_songs.splice(index, 1)
-        }
-        else {
-          saved_songs.push(item)
-        }
-      })
-        // dispatch(getRecomendSongs(songs))
-      // }
-
-
-      // if (item.saved) {
-      //   const removeSong = await request(`/api/songs/delete/${item._id}`, 'POST', null, {
-      //     Authorization: `Bearer ${token}`
-      //   });
-      //   if (removeSong.message == "deleted") {
-
-      //     return item.saved = false
-      //   }
-      //   else {
-      //     const saveSong = await request(`/api/songs/save/${item._id}`, 'POST', null, {
-      //       Authorization: `Bearer ${token}` 
-      //     });
-
-      //     if (saveSong.message == "saved") {
-      //       return item.saved = true
-      //     }
-      //   }
-      // }
-    // catch (e) {
-    //   console.log(e);
-    // }
-  }
-
-
-
   const onSavePlaylist = (save, props) => {
     console.log(save, props);
   }
 
 
-
+  let allowed = true;
   document.addEventListener('keydown', e => {
-    switch (e.code) {
-      case 'Space':
+
+    if (e.repeat !== undefined) {
+      allowed = !e.repeat;
+    }
+    if (!allowed) {
+      allowed = false;
+
+      if (e.code === 'Space') {
         dispatch(onPlay(song, start))
-        return;
-      // case 'KeyF':
-      //   setFullScreen(!fullScreen);
-      //   return;
+    }
     }
   });
-
   
   // Clicks out of element for close
   document.addEventListener('click', (e) => {
@@ -128,6 +90,8 @@ function App({ dispatch, start, songs, saved_songs, song, dir, night, profile })
       login, logout, sidebar
     }}>
 
+    {isVisible && <Message text={ message } />}
+
     {!token ? 
       <>
         <Redirect to="/auth/login" />
@@ -138,28 +102,20 @@ function App({ dispatch, start, songs, saved_songs, song, dir, night, profile })
       </> :
       
       <>
-       <Redirect to={`/${dir}`}/>
+       <Redirect to={`/For you`}/>
       
         <div className={ !night ? "music-night" : "music"}>
 
           {sidebar ? (<Sidebar/>) : (<h1 className="load_title">Loading...</h1>)}
           {profile ? 
           (<Main 
-            setPrevSong={setPrevSong}
-            setNextSong={setNextSong}W
-            
-            onSaveSong={onSaveSong} 
             onSavePlaylist={onSavePlaylist} />
             ) : (<h1 className="load_title">Loading...</h1>)}
         
-        {song &&
+      
           <Player
-          prevSong={prevSong}
-          nextSong={nextSong}
-          onSaveSong={onSaveSong} 
           fullScreen={fullScreen}
           setFullScreen={setFullScreen}/>
-        }
         </div>
         </>
     }
@@ -174,7 +130,6 @@ const mapStateToProps = (state) => {
     songs: state.songs.recomendSongs,
     saved_songs: state.profile.profile.saved_songs,
     song: state.onPlay.song,
-    dir: state.changeDir.dir,
     night: state.interface.night,
     header: state.interface.header
   }

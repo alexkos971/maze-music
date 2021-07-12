@@ -2,17 +2,20 @@ import {
     CHANGE_DIR,
     CHANGE_AUTH, 
     PLAY_SONG, 
-    SONG_DURATION, 
+    SET_START, 
     SET_SONG_DURATION, 
     ITEM_DURATION, 
     FETCH_RECOMEND_SONGS, 
+    FETCH_RECOMEND_ARTISTS,
+    FETCH_MY_SONGS,
     NOW_SONG, 
     SAVE_SONG, 
     SET_PROFILE,
     SET_FULLPLAYER,
     SET_NIGHT,
     SET_HEADER ,
-    FETCH_MY_SAVED_SONGS
+    FETCH_MY_SAVED_SONGS,
+    SWITCH_SONG
 } from './types';
 
 export const changeDir = (newDir) => {
@@ -49,17 +52,45 @@ export const setHeader = (state) => {
     }
 }
 
-export const onPlay = (item) => {
-    return async dispatch => {
-        await dispatch(setNowSong(item))
+export const onPlay = (item, list) => {
+    return async( dispatch, getState)  => {
         
-        return dispatch({
-            type: PLAY_SONG,
-            song: item
-        })
+        if (getState().onPlay.song._id === item._id) {   
+            return dispatch({
+                type: PLAY_SONG,
+                song: item,
+                list: list
+            })
+        }
+        else {
+            await dispatch(setNowSong(item));
+            await dispatch({
+                type: PLAY_SONG,
+                song: item,
+                list: list
+            })
+            dispatch({
+                type: SET_START,
+                payload: true
+            });
+        }
     }
 }
 
+export const setStart = (start) => {
+    return {
+        type: SET_START,
+        payload: start
+    }
+}
+
+export const switchSong = (direction, list) => {
+    return {
+        type: SWITCH_SONG,
+        to: direction,
+        list: list
+    }
+}
 
 // set every second of track
 export const setDuration = (dur) => {
@@ -69,6 +100,7 @@ export const setDuration = (dur) => {
     }
 }
 
+// full duration of track
 export const itemDuration = (dur) => {
     return {
         type: ITEM_DURATION,
@@ -100,6 +132,13 @@ export const setProfile = (data) => {
     }
 }
 
+export const getMySongs = (data) => {
+    return {
+        type: FETCH_MY_SONGS,
+        payload: data
+    }
+}
+
 export const getRecomendSongs = (data) => {
     return async (dispatch, getState) => {
 
@@ -108,8 +147,15 @@ export const getRecomendSongs = (data) => {
         return dispatch({
             type: FETCH_RECOMEND_SONGS,
             payload: data,
-            saved: getState().profile.profile.saved_songs
+            saved: await getState().profile.profile.saved_songs
         })
+    }
+}
+
+export const getRecomendArtists = (data) => {
+    return {
+        type: FETCH_RECOMEND_ARTISTS,
+        payload: data
     }
 }
 

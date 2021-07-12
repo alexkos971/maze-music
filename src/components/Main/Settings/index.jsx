@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import './Settings.scss'
 
@@ -6,18 +6,18 @@ import { setProfile } from '../../../redux/actions';
 
 import { useMessage } from '../../../hooks/message.hook'
 import { useHttp } from '../../../hooks/http.hook';
-import { Context } from '../../../context';
+import { useAuth } from '../../../hooks/auth.hook';
 
 const Settings = ({ dispatch, profile }) => {
     
     const message = useMessage();
     const { request } = useHttp();
-    const { token } = useContext(Context);
+    const { token } = useAuth();
 
     const changeAvatar = async () => {
         let link = prompt('Paste the link of new avatar');
         
-        if (!link.length) {
+        if (!link) {
             return alert('Поле пустое !!!');
         }
 

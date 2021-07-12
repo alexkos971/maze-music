@@ -1,4 +1,4 @@
-import { FETCH_RECOMEND_SONGS, FETCH_MY_SAVED_SONGS } from './types';
+import { FETCH_RECOMEND_SONGS, FETCH_MY_SONGS } from './types';
 
 let initialState = {
     recomendSongs: [],
@@ -6,50 +6,30 @@ let initialState = {
     mySongs: []
 }
 
-const checkSaved = (savedSongs, recomendSongs) => {
+const checkSaved = (savedSongs, songs) => {
     savedSongs.map(saved => {
-        recomendSongs.map(recomend => {
+        songs.map(recomend => {
             if (recomend._id === saved._id) {
                 recomend.saved = true;
             }
             else {
                 recomend.saved = false;
             }
-            // return recomend;
+            return recomend
         })
-        // return saved;
+        return saved;
     })
-    return recomendSongs;
+    return songs;
 }
-
-// const saveSong = (state, item) => {
-
-//     state.savedSongs.map(elem => {
-//         if (elem._id == item._id) {
-//             elem.saved = false
-//         }
-//         else {
-//             elem.saved = true
-//         }
-//     })
-//     // if (!state.length) {
-//         // state.push(item);
-//         // return state;
-//     // 
-//     // for (let i = 0; i < state.length; i++) {
-//         // if (state[i] === item) {
-//     //         state.splice(i, 1);
-//     //     }
-//     // }
-//     // state.push(item)
-//     // state.indexOf(item) == -1 ? state.splice(state.findIndex(item), 1) : state.push(item)
-//     return list;
-// }   
 
 export const songsReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_RECOMEND_SONGS:
             return { ...state, recomendSongs: checkSaved(action.saved, action.payload) };
+        
+        case FETCH_MY_SONGS:
+            return { ...state, mySongs: action.payload };
+
         default: return state;
     }
 }
